@@ -1,0 +1,72 @@
+---
+title: 'Quick Start (WhatsApp API)'
+description: 'This guide will help you get started with Hypersender WhatsApp API and send your first message.'
+---
+
+## ⚙️ How To Starts
+
+<Steps>
+<Step title="Create an account">
+
+To get started, you need to create an account on Hypersender. Visit [Hypersender](https://app.hypersender.com/login) and click on the Sign Up button.
+
+
+</Step>
+
+<Step title="Create an Instance">
+
+After you have successfully created an account, you need to create an instance. An instance is a unique identifier for your WhatsApp account. You can create multiple instances for different WhatsApp accounts.
+
+1. Click on the **Create Instance** button.
+
+2. Select Service Type: **WhatsApp**
+
+3. Enter a name for your instance.
+
+4. Enter your WhatsApp number. i.e. `+2011313311331`, make sure it's a working number and you have access to it.
+
+5. Enter a description for your instance **(Optional)**.
+
+</Step>
+
+<Step title="Copy API Key">
+
+After you have created an instance successfully, you will be redirected to the instance listing page. You'll immediately see a notification to copy your API key. Click on the **Copy** button to copy the API key to your clipboard.
+
+Copy `instanceId` and `apiKey`, you will need them to authenticate your requests.
+
+</Step>
+
+<Step title="Connect your WhatsApp Account">
+
+You'll notice that connection status is **Disconnected**. To connect your WhatsApp account, you need to scan the QR code using your Whatsapp App on your phone.
+
+1. Navigate to the 3 dots on the instance then click on **Activate**.
+2. A QR code will appear, scan it using your WhatsApp App on your phone.
+
+</Step>
+
+<Step title="Send your first message">
+
+After you have successfully connected your WhatsApp account, you should see the connection status as **Connected**. Now you can send your first message.
+
+</Step>
+
+</Steps>
+
+## Quick Demo
+
+<Tip>
+Learn how to use Hypersender whatsapp API to send a message using Postman: [Demo Link](https://docs.hypersender.com/docs/hypersender/overview/how-to-send-whatsapp-message-in-postman).
+</Tip>
+
+## postman collection
+You can download whatsapp API Postman Collection to easily interact with our API.
+
+<Card
+title="Download Collection"
+icon="book-open"
+href="https://docs.hypersender.com/whatsapp-postman-collection.json"
+>
+  Download whatsapp API Postman Collection.
+</Card>
