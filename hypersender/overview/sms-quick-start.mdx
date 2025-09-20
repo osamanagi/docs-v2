@@ -1,0 +1,158 @@
+---
+title: 'Quick Start (SMS API)'
+description: 'This guide will help you get started with Hypersender SMS API and send your first message.'
+---
+
+## ⚙️ How To Starts
+
+<Steps>
+<Step title="Create an account">
+
+To get started, you need to create an account on Hypersender. Visit [Hypersender](https://app.hypersender.com/login) and click on the Sign Up button.
+
+
+</Step>
+
+<Step title="Create an Instance">
+
+After you have successfully created an account, you need to create an instance. An instance represents a one phone number and the app on your android phone. You can create multiple instances for different phone numbers.
+
+1. Click on the **Create Instance** button.
+
+2. Select Service Type: **WhatsApp**
+
+3. Enter a name for your instance.
+
+4. Enter your phone number. i.e. `+2011313311331`, make sure it's a working number and you have access to it.
+
+5. Enter a description for your instance **(Optional)**.
+
+</Step>
+
+<Step title="Copy API Key">
+
+After you have created an instance successfully, you will be redirected to the instance listing page. You'll immediately see a notification to copy your API key. Click on the **Copy** button to copy the API key to your clipboard.
+
+Copy `instanceId` and `apiKey`, you will need them to authenticate your requests.
+
+</Step>
+
+<Step title="Download the Hypersender SMS App">
+
+Currently, Google Play Store does not allow SMS apps to be published. So you need to download the app from the Hypersender website.
+
+1. Visit the Github release page: [Hypersender SMS App](https://github.com/hypersender/sms-app-releases/releases).
+
+2. Click on the Download App button.
+
+3. Scan the QR code using your phone to download the app.
+
+### Required App Permissions
+
+In order for Hypersender to work properly, you need to grant the following permissions to the app:
+
+<Steps>
+
+<Step title="Sending Notifications">
+
+This permission is required for Hypersender to send notifications to your phone.
+
+<Frame>
+  <img src="/images/permissions/send-notifications.jpeg"
+   alt="Allow Hypersender SmS to send you notifications"
+  />
+</Frame>
+
+</Step>
+
+<Step title="Send and View Messages">
+
+This permission is required for Hypersender to send and view messages on your phone.
+
+<Frame>
+  <img src="/images/permissions/send-messages.jpeg"
+   alt="Allow Hypersender SmS to send and view messages"
+  />
+</Frame>
+
+</Step>
+
+<Step title="Manage Phone Calls">
+
+This permission is required for Hypersender to make and manage phone calls on your phone.
+
+<Frame>
+  <img src="/images/permissions/manage-phone-calls.jpeg"
+   alt="Allow Hypersender SmS to make and manage phone calls"
+  />
+</Frame>
+
+</Step>
+
+<Step title="Access Phone Logs">
+
+This permission is required for Hypersender to access and view your phone logs.
+
+<Frame>
+  <img src="/images/permissions/phone-logs.jpeg"
+   alt="Allow Hypersender SmS to access phone logs"
+  />
+</Frame>
+
+</Step>
+
+</Steps>
+
+### Battery Optimization
+
+Hypersender needs to work continuously in the background to send, receive, view, and manage messages, so it's important to disable battery optimization for the app.
+
+Hypersender will asks you to disable battery optimization when you first open it. Click on the **Ignore Battery Optimization** button to disable battery optimization for the app.
+
+<Frame>
+  <img src="/images/permissions/battery.jpeg"
+   alt="Disable battery optimization for Hypersender SmS"
+  />
+</Frame>
+
+<Warning>
+If for some reason you missed the battery optimization prompt, you can disable battery optimization manually by following these steps:
+
+1. Open **Settings** on your phone.
+
+2. Search for **Battery Optimization**.
+
+3. Search for **Hypersender SMS** and disable battery optimization for the app.
+</Warning>
+</Step>
+
+<Step title="Connect your SMS App">
+
+You'll notice that connection status is **Disconnected**. To connect your SMS app, you need to enter the API key you copied earlier in the app.
+
+</Step>
+
+<Step title="Send your first message">
+
+After you have successfully connected your SMS app, you should see the connection status as **Connected**. Now you can send your first message.
+
+</Step>
+
+</Steps>
+
+## Quick Demo
+
+<Tip>
+Learn how to use Hypersender SMS API to send a message using Postman: [Demo Link](https://docs.hypersender.com/docs/hypersender/overview/how-to-send-sms-message-in-postman).
+</Tip>
+
+## postman collection
+You can download SMS API Postman Collection to easily interact with our API.
+
+<Card
+title="Download Collection"
+icon="book-open"
+href="https://docs.hypersender.com/sms-postman-collection.json"
+>
+  Download SMS API Postman Collection.
+</Card>

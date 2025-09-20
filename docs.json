@@ -19,7 +19,7 @@
 					},
 					{
 						"group": "Overview",
-						"pages": ["hypersender/overview/whatsapp-quick-start"]
+						"pages": ["hypersender/overview/whatsapp-quick-start", "hypersender/overview/sms-quick-start"]
 					},
 					{
 						"group": "Writing content",
