@@ -18,21 +18,17 @@
 						"pages": ["hypersender/index", "hypersender/quickstart"]
 					},
 					{
-						"group": "Overview",
-						"pages": ["hypersender/overview/whatsapp-quick-start", "hypersender/overview/sms-quick-start"]
+						"group": "WhatsApp Guides",
+						"pages": ["hypersender/overview/whatsapp/whatsapp-quick-start", "hypersender/overview/whatsapp/avoid-getting-blocked", "hypersender/overview/whatsapp/warm-up-your-whatsapp-number"]
 					},
 					{
-						"group": "Writing content",
-						"pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/reusable-snippets"]
-					},
-					{
-						"group": "AI tools",
-						"pages": ["ai-tools/cursor", "ai-tools/claude-code", "ai-tools/windsurf"]
+						"group": "SMS Guides",
+						"pages": ["hypersender/overview/sms/sms-quick-start", "hypersender/overview/sms/how-it-works", "hypersender/overview/sms/heartbeats", "hypersender/overview/sms/receiving-messages"]
 					}
 				]
 			},
 			{
-				"tab": "API reference",
+				"tab": "WhatsApp API",
 				"groups": [
 					{
 						"group": "API documentation",

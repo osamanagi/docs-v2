@@ -1,0 +1,22 @@
+---
+title: "Heartbeats"
+description: ""
+---
+
+Heartbeat are basically a signal that your Android phone sends to Hypersender to let it know that it's still alive and connected to the internet. This is important because Hypersender needs to know if your phone is still connected to the internet to send and receive SMS messages.
+
+## Automatic Heartbeats
+
+Hypersender Android app sends a heartbeat signal to Hypersender every 15 minutes. This is done automatically in the background and you don't have to do anything.
+
+<Note>
+  Hypersender will consider your phone offline if it doesn't receive a heartbeat signal from your phone for more than 2 hours. In this case, Hypersender will stop sending SMS messages to your phone until it receives a heartbeat signal from your phone.
+</Note>
+
+## Manual Heartbeats
+
+If you want to manually send a heartbeat signal to Hypersender, you can click on "Send Heartbeat" button in the Hypersender Android app. This is useful if you want to make sure that your phone is connected to the internet and Hypersender is able to send and receive webhooks from your phone.
+
+<Frame>
+  <img src="/images/send-heartbeat.png" alt="Send Heartbeat" />
+</Frame>
