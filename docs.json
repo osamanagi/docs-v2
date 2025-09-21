@@ -7,6 +7,10 @@
 		"light": "#059669",
 		"dark": "#10b981"
 	},
+	"background": {
+		"image": "/images/background.png",
+		"style": "gradient"
+	},
 	"favicon": "/favicon.svg",
 	"navigation": {
 		"tabs": [
