@@ -32,11 +32,24 @@
 				"groups": [
 					{
 						"group": "API documentation",
-						"pages": ["api-reference/introduction"]
+						"pages": ["api-reference/whatsapp/introduction"]
 					},
 					{
-						"group": "Endpoint examples",
-						"pages": ["api-reference/endpoint/get", "api-reference/endpoint/create", "api-reference/endpoint/delete", "api-reference/endpoint/webhook"]
+						"group": "Endpoints",
+						"openapi": "/api-reference/whatsapp/openapi.json"
+					}
+				]
+			},
+			{
+				"tab": "SMS API",
+				"groups": [
+					{
+						"group": "API documentation",
+						"pages": ["api-reference/sms/introduction"]
+					},
+					{
+						"group": "Endpoints",
+						"openapi": "/api-reference/sms/openapi.json"
 					}
 				]
 			}
