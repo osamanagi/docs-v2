@@ -1,56 +1,111 @@
 ---
-title: 'Introduction'
-description: 'Hypersender WhatsApp API Docs'
+title: "Introduction"
+description: 'Hypersender SMS API Docs'
 ---
 
-The Hypersender WhatsApp API is a powerful api to send and recieve messages using your own whatsapp number. Without the high costs of Meta's Whatsapp business API.
+Send and receive sms messages, with Hypersender SMS API. This Documentation provides a comprehensive guide to the API, including detailed information on how to send and receive sms messages, controll message threads, and monitor phone heartbeats.
 
-In this Docs you'll learn how to use and integrate Hypersnder Whatsapp API into your existing system/service or application using simple API endpoints.
+## How it works
 
-## What you can do?
+Hypersender SMS is just an API that allows you to send SMS messages using your android phone's SIM card. The API works by sending a message to your phone, and then your phone sends the message to the recipient. The API also allows you to receive messages, and monitor your phone's heartbeats.
 
-* Send Text and basic Url messages.
+<Warning>
+  **Sender Name Limitation:**
 
-* Send Media through Link or uploaded file.
+  When sending SMS messages through the Hypersender API, the recipient will see the message as coming from your phone number rather than a custom sender name or business name. Custom sender names require extensive business verification processes and regulatory compliance that can take weeks or months to complete. Our API is designed to provide immediate SMS functionality using your existing phone number, offering a streamlined solution for your messaging needs. Please ensure your recipients are aware of this when setting up your messaging workflows.
+</Warning>
 
-* Send Audio through Link or uploaded file.
+## Receive Messages
 
-* Send Contact Card
+To receive messages, you need to have the Hypersender app installed on your android phone. The app will receive the messages, and then send them to the specified webhook.
 
-* Send Location
+## Heartbeats
 
-* Send Poll votes
+Heartbeats are like signles that used to monitor the status of your phone. your phone will send a heartbeat to the API every 15 minutes, to let the API know that it's still online.
 
-## You can also
+If your phone doesn't send a heartbeat for more than 2 hours, the API will consider your phone as offline.
 
-* React to a message
+## Working with android app
 
-* Forward messages to other chats
+To use the API, you need to have the Hypersender app installed on your android phone. The app will receive the messages and send them to the recipient.
 
-* Acknowledge messages (mark as read)
+### Download the app
 
-* Star and unstar messages
+You can download it from the release page on [github](https://github.com/hypersender/sms-app-releases/releases).
+
+<Warning>
+  Currently, the app is only available for android. You can't use the app on iOS.
+</Warning>
+
+### How to use the app
+
+<Steps>
+<Step title="Download the app">
+  Download the app from the release page.
+</Step>
+
+<Step title="Install the app">
+  Install the app on your android phone.
+</Step>
+
+<Step title="Grant the app the necessary permissions">
+  Grant the app the necessary permissions, see the [permissions](https://docs.hypersender.com/docs/hypersender/overview/sms-quick-start#step-4-download-the-hypersender-sms-app) section for more information.
+</Step>
+
+<Step title="Open the app">
+  Open the app, and scan the QR code to link the app with the API.
+  <Frame>
+    <img src="/images/scan-qrcode.png" alt="Scan QR code" />
+  </Frame>
+</Step>
+
+<Step title="The app will start receiving messages">
+  The app will start receiving messages, and then send them to the recipient.
+</Step>
+</Steps>
+
+### Why the app is not on the play store
+
+Currently, the app is only available for android. Google Play Store currently doesn't allow SMS apps, so you can't download the app from the store.
+
+<Info>
+  We recommend using a secondary phone number, because the app will send and receive messages using your phone's SIM card.
+</Info>
+
+### Why android only
+
+The app is only available for android because of the restrictions on iOS. Apple doesn't allow apps to send SMS messages, so we can't make an app for iOS.
+
+## cost of sending messages
+
+We don't charge you for sending messages, but for using the API. Please check the pricing page for more information.
+
+Sending costs is different from one country to another, and directly depends on the carrier's pricing and offers.
 
 ## Quick Demo
 
 <Tip>
-Learn how to use Hypersender whatsapp API to send a message using Postman: [Demo Link](https://docs.hypersender.com/docs/hypersender/overview/how-to-send-whatsapp-message-in-postman).
+  **Learn how to use Hypersender SMS API to send a message using Postman:** [Demo Link](/docs/sms/how-to-send-sms-message-in-postman)
 </Tip>
 
+## bulk sending
+
+Currently, the API doesn't support bulk sending, but you can send multiple messages by sending multiple requests.
+
+## international messaging
+
+As long as you have an android phone and SIM card you can send messages from anywhere in the world but take into consideration that the carrier may charge you significantly more for international messaging.
+
 ## postman collection
-You can download whatsapp API Postman Collection to easily interact with our API.
+You can download SMS API Postman Collection to easily interact with our API.
 
 <Card
 title="Download Collection"
 icon="book-open"
-href="https://docs.hypersender.com/whatsapp-postman-collection.json"
+href="https://docs.hypersender.com/sms-postman-collection.json"
 >
-  Download whatsapp API Postman Collection.
+  Download SMS API Postman Collection.
 </Card>
-
-## Servers (Endpoints)
-
-* Production (activated): https://app.hypersender.com/api/whatsapp/v1
 
 ## Authentication
 

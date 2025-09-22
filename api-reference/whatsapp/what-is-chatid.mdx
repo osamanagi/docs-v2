@@ -1,0 +1,15 @@
+---
+title: "What is chatId?"
+description: "The chatId is a phone number identifier where you’re sending the message, It is a crucial part of the WhatsApp API, as it specifies the destination for messages sent through the API."
+---
+
+* **Individual User:**
+
+  * Format: `[phoneNumber]@c.us`
+  * Description: This is the most common format for sending messages to individual WhatsApp users. You need to use the user's full international phone number. Crucially, omit any leading `+` symbol or other special characters like spaces or hyphens. After the numeric phone number, append `@c.us`.
+  * Example: If a user's phone number is `+1 (213) 213-2131`, the corresponding `chatId` would be `[email protected]`.
+
+* **Hidden User ID (LID):**
+
+  * Format: `[someNumber]@lid`
+  * Description: The LID (Linked ID) is an alternative, privacy-preserving identifier for a WhatsApp user. Every WhatsApp user has both a standard phone number-based ID (`@c.us`) and a hidden LID. LIDs are often used in contexts where exposing the actual phone number is not desirable or necessary. The `[someNumber]` part is a unique numeric string associated with the user's LID.

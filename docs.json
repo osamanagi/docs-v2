@@ -8,7 +8,10 @@
 		"dark": "#10b981"
 	},
 	"background": {
-		"image": "/images/background.png",
+		"image": {
+			"light": "/images/background.png",
+			"dark": "/images/background-dark.png"
+		},
 		"style": "gradient"
 	},
 	"favicon": "/favicon.svg",
@@ -36,7 +39,7 @@
 				"groups": [
 					{
 						"group": "API documentation",
-						"pages": ["api-reference/whatsapp/introduction"]
+						"pages": ["api-reference/whatsapp/introduction", "api-reference/whatsapp/what-is-chatid", "api-reference/whatsapp/how-to-send-whatsapp-message-in-postman"]
 					},
 					{
 						"group": "Endpoints",
@@ -49,7 +52,7 @@
 				"groups": [
 					{
 						"group": "API documentation",
-						"pages": ["api-reference/sms/introduction"]
+						"pages": ["api-reference/sms/introduction", "api-reference/sms/how-to-send-sms-message-in-postman"]
 					},
 					{
 						"group": "Endpoints",
@@ -87,13 +90,13 @@
 		"links": [
 			{
 				"label": "Support",
-				"href": "mailto:hi@mintlify.com"
+				"href": "mailto:info@hypersender.com"
 			}
 		],
 		"primary": {
 			"type": "button",
 			"label": "Dashboard",
-			"href": "https://dashboard.mintlify.com"
+			"href": "https://app.hypersender.com"
 		}
 	},
 	"contextual": {
@@ -101,9 +104,9 @@
 	},
 	"footer": {
 		"socials": {
-			"x": "https://x.com/mintlify",
-			"github": "https://github.com/mintlify",
-			"linkedin": "https://linkedin.com/company/mintlify"
+			"x": "https://x.com/hypersender",
+			"github": "https://github.com/hypersender",
+			"linkedin": "https://linkedin.com/company/hypersender"
 		}
 	}
 }
