@@ -35,15 +35,20 @@
 				]
 			},
 			{
-				"tab": "WhatsApp API",
+				"tab": "Whatsapp API",
 				"groups": [
 					{
-						"group": "API documentation",
-						"pages": ["api-reference/whatsapp/introduction", "api-reference/whatsapp/what-is-chatid", "api-reference/whatsapp/how-to-send-whatsapp-message-in-postman"]
+						"group": "Whatsapp API",
+						"pages": ["api-reference/whatsapp/introduction"],
+						"openapi": "/whatsapp-api.yml"
+					},
+					{
+						"group": "Whatsapp Webhooks",
+						"pages": ["api-reference/whatsapp-webhooks/introduction"]
 					},
 					{
 						"group": "Endpoints",
-						"openapi": "/api-reference/whatsapp/openapi.json"
+						"pages": ["api-reference/whatsapp/what-is-chatid", "api-reference/whatsapp/how-to-send-whatsapp-message-in-postman"]
 					}
 				]
 			},
