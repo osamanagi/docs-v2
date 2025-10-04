@@ -1,0 +1,38 @@
+---
+title: "Send Text Safe"
+description: "Safely send a WhatsApp text message with human-like pacing, typing simulation, and optional rich link previews to reduce block risk."
+openapi: "/api-reference/whatsapp/openapi.json POST /{instance}/send-text-safe"
+---
+
+## Send Text Message Safe
+
+The Send Text Safe endpoint functions similarly to the standard send-text endpoint but with enhanced safety features designed specifically to protect your WhatsApp number from being blocked or flagged for suspicious activity.
+
+<Warning>
+  * WhatsApp has strict policies against automated messaging, and using the standard send-text endpoint too frequently can lead to your number being flagged or blocked.
+  * This endpoint is designed to mimic human behavior more closely, making it less likely for WhatsApp to detect automated activity.
+</Warning>
+
+### **It:**
+
+* Automatically calculates the appropriate delay between messages based on text length, by adding a few seconds for thinking/reviewing before sending
+* Simulates typing behavior in WhatsApp before sending the message
+* Significantly reduces the risk of your WhatsApp number being blocked due to automated messaging patterns
+* Reduces the risk of being flagged for automated behavior
+
+***
+
+## Sending link preview
+
+If the text has a link - it generates a preview for that link. You can adjust the behaviour by setting
+
+* `link_preview: true` - to enable link preview
+* `link_preview_high_quality: true` - to enable high-quality link preview
+
+<Frame>
+<img src="/images/docs/whatsapp/img/send-text-send-link-preview.png" alt="send-text send link preview" />
+</Frame>
+
+<Info>
+  You can still send messages directly with `send-text` endpoint, but we highly recommend using this endpoint for regular messaging operations to maintain a more natural communication pattern, and keep your whatsapp number safe from being blocked.
+</Info>

@@ -11,8 +11,7 @@
 		"image": {
 			"light": "/images/background.png",
 			"dark": "/images/background-dark.png"
-		},
-		"style": "gradient"
+		}
 	},
 	"favicon": "/favicon.svg",
 	"navigation": {
@@ -38,17 +37,17 @@
 				"tab": "Whatsapp API",
 				"groups": [
 					{
-						"group": "Whatsapp API",
-						"pages": ["api-reference/whatsapp/introduction"],
-						"openapi": "/whatsapp-api.yml"
+						"group": "Overview",
+						"pages": ["api-reference/whatsapp/introduction", "api-reference/whatsapp/what-is-chatid", "api-reference/whatsapp/how-to-send-whatsapp-message-in-postman"]
+					},
+					{
+						"group": "WhatsApp API",
+						"openapi": "/api-reference/whatsapp/openapi.json",
+						"pages": ["api-reference/whatsapp/endpoint/send-text-safe"]
 					},
 					{
 						"group": "Whatsapp Webhooks",
 						"pages": ["api-reference/whatsapp-webhooks/introduction"]
-					},
-					{
-						"group": "Endpoints",
-						"pages": ["api-reference/whatsapp/what-is-chatid", "api-reference/whatsapp/how-to-send-whatsapp-message-in-postman"]
 					}
 				]
 			},

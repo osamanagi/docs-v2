@@ -17,6 +17,7 @@
 	"paths": {
 		"/{instance}/send-text-safe": {
 			"post": {
+				"x-hidden": true,
 				"tags": ["Send Messages"],
 				"summary": "Send Text Safe",
 				"description": "## Send Text Message Safe\n\nThe Send Text Safe endpoint functions similarly to the standard send-text endpoint but with enhanced safety features designed specifically to protect your WhatsApp number from being blocked or flagged for suspicious activity.\n\n- WhatsApp has strict policies against automated messaging, and using the standard send-text endpoint too frequently can lead to your number being flagged or blocked.\n- This endpoint is designed to mimic human behavior more closely, making it less likely for WhatsApp to detect automated activity.\n\n### **It:**\n  - Automatically calculates the appropriate delay between messages based on text length, by adding a few seconds for thinking/reviewing before sending\n  - Simulates typing behavior in WhatsApp before sending the message\n  - Significantly reduces the risk of your WhatsApp number being blocked due to automated messaging patterns\n  - Reduces the risk of being flagged for automated behavior\n\n<hr />\n\n## Sending link preview\n\nIf the text has a link - it generates a preview for that link. You can adjust the behaviour by setting\n\n- `link_preview: true` - to enable link preview\n- `link_preview_high_quality: true` - to enable high-quality link preview\n\n  You can still send messages directly with `send-text` endpoint, but we highly recommend using this endpoint for regular messaging operations to maintain a more natural communication pattern, and keep your whatsapp number safe from being blocked.",
@@ -71,54 +72,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"allOf": [
-									{
-										"$ref": "#/components/schemas/SendMessageRequest"
-									},
-									{
-										"type": "string",
-										"properties": {
-											"text": {
-												"type": "string",
-												"description": "Text Message\r\n"
-											},
-											"reply_to": {
-												"type": "string",
-												"description": "Reply to message id\r\n"
-											},
-											"link_preview": {
-												"type": "boolean",
-												"description": "Link Preview\r\n"
-											},
-											"link_preview_high_quality": {
-												"type": "boolean",
-												"description": "Link Preview High Quality\r\n"
-											}
-										},
-										"required": ["text"]
-									}
-								],
-								"x-examples": {
-									"Example 1": {
-										"linkPreview": {
-											"link": "https://hypersender.com",
-											"title": "Hypersender",
-											"description": "Hypersender is a powerful API for sending Whatsapp and SMS messages. It is designed to be simple and easy to use, with a focus on security and reliability.",
-											"text": "Hypersender is Amazing!"
-										}
-									}
-								}
-							},
-							"examples": {
-								"Example 1": {
-									"value": {
-										"chatId": "111111111111@c.us",
-										"text": "Hi there!",
-										"reply_to": "string",
-										"link_preview": false,
-										"link_preview_high_quality": false
-									}
-								}
+								"$ref": "#/components/schemas/SendMessageRequest"
 							}
 						}
 					}
@@ -4689,33 +4643,25 @@
 					"chatId": {
 						"type": "string",
 						"description": "Contact number - **learn what is [`chatId`](https://docs.hypersender.com/docs/whatsapp/what-is-chatid)**"
+					},
+					"text": {
+						"type": "string",
+						"description": "Text Message\r\n"
+					},
+					"reply_to": {
+						"type": "string",
+						"description": "Reply to message id\r\n"
+					},
+					"link_preview": {
+						"type": "boolean",
+						"description": "Link Preview\r\n"
+					},
+					"link_preview_high_quality": {
+						"type": "boolean",
+						"description": "Link Preview High Quality\r\n"
 					}
 				},
-				"required": ["chatId"],
-				"x-examples": {
-					"Example 1": {
-						"recipient": "11111111111@c.us",
-						"options": {
-							"delay": 0,
-							"presence": "recording",
-							"quoteMessageById": "string",
-							"groupMention": {
-								"hidden": true,
-								"everyone": true
-							},
-							"externalAttributes": "string"
-						},
-						"linkPreview": {
-							"link": "https://hypersender.com",
-							"title": "Hypersender",
-							"description": "Hypersender is a powerful API for sending Whatsapp and SMS messages. It is designed to be simple and easy to use, with a focus on security and reliability.",
-							"text": "Hypersender is Amazing!"
-						}
-					}
-				},
-				"x-stoplight": {
-					"id": "ccq4omalkpe3k"
-				}
+				"required": ["chatId"]
 			},
 			"NotFoundError": {
 				"type": "object",
