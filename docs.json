@@ -47,7 +47,7 @@
 					{
 						"group": "WhatsApp API",
 						"openapi": "/api-reference/whatsapp/openapi.json",
-						"pages": ["api-reference/whatsapp/send-messages/send-text-safe", "api-reference/whatsapp/send-messages/send-text", "api-reference/whatsapp/send-messages/send-link-preview"]
+						"pages": ["api-reference/whatsapp/send-messages/send-text-safe", "api-reference/whatsapp/send-messages/send-text", "api-reference/whatsapp/send-messages/send-link-preview", "api-reference/whatsapp/send-messages/send-link-custom-preview"]
 					},
 					{
 						"group": "Whatsapp Webhooks",

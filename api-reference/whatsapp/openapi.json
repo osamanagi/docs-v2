@@ -705,10 +705,8 @@
 		},
 		"/{instance}/send-link-custom-preview": {
 			"post": {
-				"tags": ["Deprecated"],
-				"summary": "send-link-custom-preview",
-				"description": "## Send Link Custom Preview\n\n## Info:\n\n  This feature is only available for subscribed accounts.\n\nUsing **`send-text`** or **`send-text-safe`** you can send auto-generated link previews.\n\n## You can send custom link preview in two ways:\n\n## Provide a URL for the image.\n\n## info\n\n  WhatsApp requires the text to contain the preview URL anywhere in the text.\n  text - must contain preview.url somewhere in the text\n  <hr/>\n  Example: `\"text\": \"Check this out! https://hypersender.com/\"`\n\n## Warning:\n\n  Please note that the URL must be publicly accessible and not require any authentication or special headers to access the file.\n\n---\n\n## Send the image it self as a file upload.\n\n## Info:\n\n  By specifying the `high_quality` parameter as `true`, you can get a higher quality image.",
-				"operationId": "wa-send-link-custom-preview",
+				"x-hidden": true,
+				"tags": ["Send Messages"],
 				"parameters": [
 					{
 						"name": "Accept",
@@ -753,105 +751,10 @@
 					}
 				],
 				"requestBody": {
-					"description": "",
 					"content": {
 						"application/json": {
 							"schema": {
-								"allOf": [
-									{
-										"$ref": "#/components/schemas/SendMessageRequest"
-									},
-									{
-										"type": "string",
-										"properties": {
-											"text": {
-												"type": "string",
-												"description": "text should contain the url to send\r\n"
-											}
-										},
-										"required": ["text"]
-									},
-									{
-										"type": "string",
-										"properties": {
-											"reply_to": {
-												"type": "string",
-												"description": "reply to message id\r\n"
-											}
-										}
-									},
-									{
-										"type": "string",
-										"properties": {
-											"high_quality": {
-												"type": "boolean",
-												"description": "high quality for the image\r\n"
-											}
-										}
-									},
-									{
-										"type": "string",
-										"properties": {
-											"preview_title": {
-												"type": "string",
-												"description": "title of the link preview\r\n"
-											}
-										},
-										"required": ["preview_title"]
-									},
-									{
-										"type": "string",
-										"properties": {
-											"preview_description": {
-												"type": "string",
-												"description": "description of the link preview\r\n"
-											}
-										},
-										"required": ["preview_description"]
-									},
-									{
-										"type": "string",
-										"properties": {
-											"preview_url": {
-												"type": "string",
-												"description": "must be a valid URL\r\n"
-											}
-										},
-										"required": ["preview_url"]
-									},
-									{
-										"type": "string",
-										"properties": {
-											"preview_image_url": {
-												"type": "string",
-												"description": "URL of the image to be used in the link preview - (only if preview_image_file is not provided)\r\n"
-											}
-										},
-										"required": ["preview_image_url"]
-									},
-									{
-										"type": "string",
-										"properties": {
-											"preview_image_file": {
-												"type": "string",
-												"description": "file of the image to be used in the link preview - (only if preview_image_url is not provided)\r\n"
-											}
-										},
-										"required": ["preview_image_file"]
-									}
-								],
-								"x-examples": {
-									"Example 1": {
-										"content": {
-											"text": "https://hypersender.com\n\n      Hypersender is Amazing!",
-											"matchedText": "https://hypersender.com",
-											"canonicalUrl": "https://hypersender.com",
-											"description": "Hypersender is a powerful API for sending Whatsapp and SMS messages. It is designed to be simple and easy to use, with a focus on security and reliability.",
-											"title": "Hypersender",
-											"previewType": "NONE"
-										}
-									}
-								}
+								"$ref": "#/components/schemas/SendLinkCustomPreview"
 							},
 							"examples": {
 								"Example 1": {
@@ -4594,6 +4497,49 @@
 					}
 				},
 				"required": ["chatId", "text"]
+			},
+			"SendLinkCustomPreview": {
+				"type": "object",
+				"properties": {
+					"chatId": {
+						"type": "string",
+						"description": "Contact number - **learn what is [`chatId`](https://docs.hypersender.com/docs/whatsapp/what-is-chatid)**",
+						"example": "111111111111@c.us"
+					},
+					"text": {
+						"type": "string",
+						"description": "text should contain the url to send"
+					},
+					"reply_to": {
+						"type": "string",
+						"description": "reply to message id"
+					},
+					"high_quality": {
+						"type": "boolean",
+						"description": "high quality for the image"
+					},
+					"preview_title": {
+						"type": "string",
+						"description": "title of the link preview"
+					},
+					"preview_description": {
+						"type": "string",
+						"description": "description of the link preview"
+					},
+					"preview_url": {
+						"type": "string",
+						"description": "must be a valid URL"
+					},
+					"preview_image_url": {
+						"type": "string",
+						"description": "URL of the image to be used in the link preview - (only if preview_image_file is not provided)"
+					},
+					"preview_image_file": {
+						"type": "string",
+						"description": "file of the image to be used in the link preview - (only if preview_image_url is not provided)"
+					}
+				},
+				"required": ["chatId", "text", "preview_title", "preview_description", "preview_url", "preview_image_url", "preview_image_file"]
 			},
 			"SendLinkPreview": {
 				"type": "object",
