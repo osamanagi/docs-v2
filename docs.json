@@ -13,6 +13,9 @@
 			"dark": "/images/background-dark.png"
 		}
 	},
+	"styling": {
+		"eyebrows": "breadcrumbs"
+	},
 	"favicon": "/favicon.svg",
 	"navigation": {
 		"tabs": [
@@ -35,6 +38,7 @@
 			},
 			{
 				"tab": "Whatsapp API",
+				"icon": "whatsapp",
 				"groups": [
 					{
 						"group": "Overview",
@@ -43,7 +47,7 @@
 					{
 						"group": "WhatsApp API",
 						"openapi": "/api-reference/whatsapp/openapi.json",
-						"pages": ["api-reference/whatsapp/endpoint/send-text-safe"]
+						"pages": ["api-reference/whatsapp/send-messages/send-text-safe", "api-reference/whatsapp/send-messages/send-text", "api-reference/whatsapp/send-messages/send-link-preview"]
 					},
 					{
 						"group": "Whatsapp Webhooks",
@@ -53,6 +57,7 @@
 			},
 			{
 				"tab": "SMS API",
+				"icon": "message",
 				"groups": [
 					{
 						"group": "API documentation",
