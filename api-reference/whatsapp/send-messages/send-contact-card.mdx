@@ -1,44 +1,33 @@
 ---
-title: "send-contact-card"
+title: "Send Contact Card"
+description: "Send a contact card in the chat"
+openapi: "/api-reference/whatsapp/openapi.json POST /{instance}/send-contact-card"
 ---
-
-```
-POST 
-/:instance/send-contact-card
-```
-
-## Send Contact Card in Chat[​](#send-contact-card-in-chat "Direct link to Send Contact Card in Chat")
 
 You can send a contact card in a chat in two ways:
 
-* By providing the vcard:
+### By providing the vcard:
 
-example:
-
-```
-  {    "vcard": "BEGIN:VCARD\nVERSION:3.0\nFN:Jane Doe\nORG:Company Name;\nTEL;type=CELL;type=VOICE;waid=911111111111:+111111111111\nEND:VCARD"  }
-```
-
-* By providing the contact info:
-
-example:
-
-```
-    {      "vcard": null,      "fullName": "john doe",      "organization": "hypersender",      "phoneNumber": "+1111111111111",      "whatsappId": "911111111111"    }
+```json
+{
+    "vcard": "BEGIN:VCARD\\nVERSION:3.0\\nFN:Jane Doe\\nORG:Company Name;\\nTEL;type=CELL;type=VOICE;waid=911111111111:+11111111111111\\nEND:VCARD",
+    "organization": "Hypersender",
+    "whatsappId": 911111111111
+}
 ```
 
-![Hypersender Logo](/images/docs/whatsapp/img/send-contact-card.png)
+### By providing the contact info:
 
-## Request[​](#request "Direct link to Request")
+```json
+{
+    "vcard": null,
+    "fullName": "john doe",
+    "organization": "hypersender",
+    "phoneNumber": "+1111111111111",
+    "whatsappId": "911111111111"
+}
+```
 
-## Responses[​](#responses "Direct link to Responses")
-
-* 201
-* 422
-* 500
-
-Successful response
-
-Validation Error
-
-Internal Server Error
+<Frame>
+<img src="/images/docs/whatsapp/img/send-contact-card.png" alt="Send Contact Card" />
+</Frame>

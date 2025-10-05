@@ -1,31 +1,17 @@
 ---
-title: "delete message"
+title: "Delete Message"
+description: "Delete a message from the chat."
+openapi: "/api-reference/whatsapp/openapi.json DELETE /{instance}/delete-message"
 ---
-
-```
-DELETE 
-/:instance/delete-message
-```
-
-## Delete message[​](#delete-message "Direct link to Delete message")
 
 You can delete messages from the chat.
 
 so if you want to delete a message from a specific chat pass the `chatId` and `messageId` in the query parameters.
 
-## Request[​](#request "Direct link to Request")
+`chatId` - The unique identifier for the chat (e.g., `111111111111@c.us`)
 
-## Responses[​](#responses "Direct link to Responses")
+`messageId` - The unique identifier for the message (e.g., `true_111111111111@c.us_3EB081B845A6A6E3991180`)
 
-* 201
-* 404
-* 422
-* 500
-
-Successful response
-
-Not Found
-
-Validation Error
-
-Internal Server Error
+<Frame>
+<img src="/images/docs/whatsapp/img/delete-message.jpg" alt="Delete Message" />
+</Frame>

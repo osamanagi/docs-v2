@@ -48,25 +48,30 @@
 						"group": "WhatsApp API",
 						"openapi": "/api-reference/whatsapp/openapi.json",
 						"pages": [
-							"api-reference/whatsapp/send-messages/send-text-safe",
-							"api-reference/whatsapp/send-messages/send-text",
-							"api-reference/whatsapp/send-messages/send-link-preview",
-							"api-reference/whatsapp/send-messages/send-link-custom-preview",
-							"api-reference/whatsapp/send-messages/send-file",
-							"api-reference/whatsapp/send-messages/send-video",
-							"api-reference/whatsapp/send-messages/send-image",
-							"api-reference/whatsapp/send-messages/send-link-audio",
-							"api-reference/whatsapp/send-messages/forward-message",
-							"api-reference/whatsapp/send-messages/react-to-message",
-							"api-reference/whatsapp/send-messages/read-chat",
-							"api-reference/whatsapp/send-messages/start-typing",
-							"api-reference/whatsapp/send-messages/stop-typing",
-							"api-reference/whatsapp/send-messages/delete-message",
-							"api-reference/whatsapp/send-messages/send-contact-card",
-							"api-reference/whatsapp/send-messages/send-location",
-							"api-reference/whatsapp/send-messages/send-poll",
-							"api-reference/whatsapp/send-messages/send-seen",
-							"api-reference/whatsapp/send-messages/star-message"
+							{
+								"group": "Send Messages",
+								"pages": [
+									"api-reference/whatsapp/send-messages/send-text-safe",
+									"api-reference/whatsapp/send-messages/send-text",
+									"api-reference/whatsapp/send-messages/send-link-custom-preview",
+									"api-reference/whatsapp/send-messages/send-file",
+									"api-reference/whatsapp/send-messages/send-video",
+									"api-reference/whatsapp/send-messages/send-image",
+									"api-reference/whatsapp/send-messages/send-link-audio",
+									"api-reference/whatsapp/send-messages/forward-message",
+									"api-reference/whatsapp/send-messages/send-seen",
+									"api-reference/whatsapp/send-messages/read-chat",
+									"api-reference/whatsapp/send-messages/start-typing",
+									"api-reference/whatsapp/send-messages/stop-typing",
+									"api-reference/whatsapp/send-messages/send-poll",
+									"api-reference/whatsapp/send-messages/send-contact-card",
+									"api-reference/whatsapp/send-messages/send-location",
+									"api-reference/whatsapp/send-messages/react-to-message",
+									"api-reference/whatsapp/send-messages/star-message",
+									"api-reference/whatsapp/send-messages/delete-message",
+									"api-reference/whatsapp/send-messages/send-link-preview"
+								]
+							}
 						]
 					},
 					{
