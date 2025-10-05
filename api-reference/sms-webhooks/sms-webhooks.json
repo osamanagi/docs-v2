@@ -1,0 +1,1084 @@
+{
+	"openapi": "3.1.0",
+	"info": {
+		"title": "Hypersender SMS Webhooks",
+		"description": "# Introduction\nThe Hypersender SMS API offers a webhook-based integration that delivers real-time, event-driven notifications. This allows developers to monitor their connected phones (sms app) or respond to specific events.\n- **Monitor Message Status**: Provides real-time updates on the status of sent messages, such as when the message is queued to be sent or has been successfully delivered.\n- **Receive Incoming Messages**: Get notified when a new message is received on the connected phone.\n- **Monitor Connected Phone**: Receive periodic heartbeats from your connected phone to ensure the connection is active and act when the phone is offline.",
+		"version": "1.0.0"
+	},
+	"webhooks": {
+		"heartbeat-received": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Heartbeats"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"event": {
+										"type": "string",
+										"enum": ["phone.heartbeat.received"]
+									},
+									"data": {
+										"$ref": "#/components/schemas/Heartbeat"
+									}
+								},
+								"required": ["event", "data"]
+							},
+							"examples": {
+								"Example": {
+									"value": {
+										"event": "phone.heartbeat.received",
+										"data": {
+											"id": "9e06e75d-416d-454c-a80c-2ea11e04563b",
+											"phone_id": "9defcf1e-552c-4bef-a843-872edec576ef",
+											"battery_level": "63",
+											"is_charging": false,
+											"local_timestamp": "2025-01-22 07:48:05",
+											"app_version": "v1.0.3",
+											"created_at": "2025-01-22 05:48:06",
+											"updated_at": "2025-01-22 05:48:06"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successfully received the heartbeat. The server acknowledged."
+					}
+				}
+			}
+		},
+		"heartbeat-online": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Heartbeats"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"event": {
+										"type": "string",
+										"enum": ["phone.heartbeat.online"]
+									},
+									"data": {
+										"$ref": "#/components/schemas/Phone"
+									}
+								},
+								"required": ["event", "data"]
+							},
+							"examples": {
+								"Example": {
+									"value": {
+										"event": "phone.heartbeat.online",
+										"data": {
+											"id": "9dedf71e-8f16-439c-9220-489cd2144e0c",
+											"phone_id": "9dedf71e-97bf-47eb-8df5-3088a7865603",
+											"user_id": "9cbff1d0-6c37-4612-a8bb-6db042991761",
+											"phone_number": "+201432984902",
+											"name": "John Doe",
+											"fcm_notifications_per_minute": 100,
+											"sim": "SIM1",
+											"max_send_attempts": 10,
+											"message_expiration_seconds": 259200,
+											"missed_call_auto_reply_message": null,
+											"is_online": true,
+											"last_online_at": "2025-01-22 13:16:17",
+											"last_offline_at": "2025-01-21 22:32:03",
+											"last_message_at": "2025-01-22 20:04:01",
+											"last_missed_call_at": "2025-01-22 13:16:22",
+											"last_heartbeat_at": "2025-01-23 02:16:04",
+											"heartbeat_enabled_at": "2025-01-22 13:16:17",
+											"attributes": [],
+											"timezone": "GMT+2",
+											"created_at": "2025-01-09 20:16:27",
+											"updated_at": "2025-01-23 02:16:04"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successfully received the heartbeat. The server acknowledged."
+					}
+				}
+			}
+		},
+		"heartbeat-offline": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Heartbeats"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"event": {
+										"type": "string",
+										"enum": ["phone.heartbeat.offline"]
+									},
+									"data": {
+										"$ref": "#/components/schemas/Phone"
+									}
+								},
+								"required": ["event", "data"]
+							},
+							"examples": {
+								"Example": {
+									"value": {
+										"event": "phone.heartbeat.offline",
+										"data": {
+											"id": "9dedf71e-8f16-439c-9220-489cd2144e0c",
+											"phone_id": "9dedf71e-97bf-47eb-8df5-3088a7865603",
+											"user_id": "9cbff1d0-6c37-4612-a8bb-6db042991761",
+											"phone_number": "+201432984902",
+											"name": "John Doe",
+											"fcm_notifications_per_minute": 100,
+											"sim": "SIM1",
+											"max_send_attempts": 10,
+											"message_expiration_seconds": 259200,
+											"missed_call_auto_reply_message": null,
+											"is_online": false,
+											"last_online_at": "2025-01-22 13:16:17",
+											"last_offline_at": "2025-01-21 22:32:03",
+											"last_message_at": "2025-01-22 20:04:01",
+											"last_missed_call_at": "2025-01-22 13:16:22",
+											"last_heartbeat_at": "2025-01-23 02:16:04",
+											"heartbeat_enabled_at": "2025-01-22 13:16:17",
+											"attributes": [],
+											"timezone": "GMT+2",
+											"created_at": "2025-01-09 20:16:27",
+											"updated_at": "2025-01-23 02:16:04"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successfully received the heartbeat. The server acknowledged."
+					}
+				}
+			}
+		},
+		"heartbeat-missed": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Heartbeats"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"event": {
+										"type": "string",
+										"enum": ["phone.heartbeat.missed"]
+									},
+									"data": {
+										"$ref": "#/components/schemas/Phone"
+									}
+								},
+								"required": ["event", "data"]
+							},
+							"examples": {
+								"Example": {
+									"value": {
+										"event": "phone.heartbeat.missed",
+										"data": {
+											"id": "9defcf1e-4e43-4582-9ba4-2fbd1f4394ec",
+											"phone_id": "9defcf1e-552c-4bef-a843-872edec576ef",
+											"user_id": "9cbff1d0-6c37-4612-a8bb-6db042991361",
+											"phone_number": "+201487293489",
+											"name": "john doe",
+											"fcm_notifications_per_minute": 100,
+											"sim": "SIM1",
+											"max_send_attempts": 10,
+											"message_expiration_seconds": 259200,
+											"missed_call_auto_reply_message": null,
+											"is_online": true,
+											"last_online_at": "2025-01-21 20:50:26",
+											"last_offline_at": "2025-01-21 19:48:04",
+											"last_message_at": "2025-01-21 22:04:59",
+											"last_missed_call_at": null,
+											"last_heartbeat_at": "2025-01-22 11:31:44",
+											"heartbeat_enabled_at": "2025-01-21 20:50:26",
+											"attributes": [],
+											"timezone": "GMT+2",
+											"created_at": "2025-01-10 18:16:16",
+											"updated_at": "2025-01-22 11:31:44"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successfully received the heartbeat. The server acknowledged."
+					}
+				}
+			}
+		},
+		"heartbeat-disabled": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Heartbeats"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"event": {
+										"type": "string",
+										"enum": ["phone.heartbeat.missed"]
+									},
+									"data": {
+										"$ref": "#/components/schemas/Phone"
+									}
+								},
+								"required": ["event", "data"]
+							},
+							"examples": {
+								"Example": {
+									"value": {
+										"event": "phone.heartbeat.missed",
+										"data": {
+											"id": "9dedf71e-8f16-439c-9220-489cd2144e0c",
+											"phone_id": "9dedf71e-97bf-47eb-8df5-3088a7865603",
+											"user_id": "9cbff1d0-6c37-4612-a8bb-6db042991761",
+											"phone_number": "+20143298903",
+											"name": "John Doe",
+											"fcm_notifications_per_minute": 100,
+											"sim": "SIM1",
+											"max_send_attempts": 10,
+											"message_expiration_seconds": 259200,
+											"missed_call_auto_reply_message": null,
+											"is_online": true,
+											"last_online_at": "2025-01-22 13:16:17",
+											"last_offline_at": "2025-01-21 22:32:03",
+											"last_message_at": "2025-01-22 20:04:01",
+											"last_missed_call_at": "2025-01-22 13:16:22",
+											"last_heartbeat_at": "2025-01-23 02:16:04",
+											"heartbeat_enabled_at": "2025-01-22 13:16:17",
+											"attributes": [],
+											"timezone": "GMT+2",
+											"created_at": "2025-01-09 20:16:27",
+											"updated_at": "2025-01-23 02:16:04"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successfully received the heartbeat. The server acknowledged."
+					}
+				}
+			}
+		},
+		"message-failed": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Message Events"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"event": {
+										"type": "string",
+										"enum": ["message.send.failed"]
+									},
+									"data": {
+										"$ref": "#/components/schemas/Message"
+									}
+								},
+								"required": ["event", "data"]
+							},
+							"examples": {
+								"Example": {
+									"value": {
+										"event": "message.send.failed",
+										"data": {
+											"id": "9e064045-039b-4f94-a378-aa47b86a7e3f",
+											"request_id": "133554b5-ae44-44a0-8f4f-7bbac5657a11",
+											"message_thread_id": "9e0631d1-203e-468c-a34b-6026ea43b6b8",
+											"phone_id": "9defcf1e-552c-4bef-a843-872edec576ef",
+											"from_phone_number": "+201489247389",
+											"to_phone_number": "+201329304829",
+											"content": "test message",
+											"send_duration": null,
+											"schedule_on_phone_at": "2025-01-21 22:04:59",
+											"sent_at": null,
+											"last_attempted_at": "2025-01-21 22:04:59",
+											"delivered_at": null,
+											"received_at": null,
+											"expired_at": null,
+											"schedule_send_at": "2025-01-21 22:05:00",
+											"failed_at": "2025-01-21 22:05:04",
+											"send_attempt_count": 1,
+											"max_send_attempts": 10,
+											"failure_reason": "UNKNOWN",
+											"message_expiration_seconds": 259200,
+											"timezone": "GMT+2",
+											"sim": "SIM1",
+											"status": "failed",
+											"type": "sent_to_mobile",
+											"created_at": "2025-01-21 22:00:52",
+											"updated_at": "2025-01-21 22:05:05"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successfully delivered the message. The server acknowledged."
+					}
+				}
+			}
+		},
+		"message-delivered": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Message Events"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"event": {
+										"type": "string",
+										"enum": ["message.phone.delivered"]
+									},
+									"data": {
+										"$ref": "#/components/schemas/Message"
+									}
+								},
+								"required": ["event", "data"]
+							},
+							"examples": {
+								"Example": {
+									"value": {
+										"event": "message.phone.delivered",
+										"data": {
+											"id": "9e0818ff-a1ce-435a-b17b-6205cd8dd6c3",
+											"request_id": "133554b5-ae44-44a0-8f4f-7bbac5657a11",
+											"message_thread_id": "9e08187b-10e5-4de9-b9d2-ee9303d5eae0",
+											"phone_id": "9dedf71e-97bf-47eb-8df5-3088a7865603",
+											"from_phone_number": "+201490428909",
+											"to_phone_number": "+201328497823",
+											"content": "test message delivered",
+											"send_duration": null,
+											"schedule_on_phone_at": "2025-01-22 20:04:01",
+											"sent_at": "2025-01-22 20:04:03",
+											"last_attempted_at": "2025-01-22 20:04:01",
+											"delivered_at": "2025-01-22 20:04:06",
+											"received_at": null,
+											"expired_at": null,
+											"schedule_send_at": "2025-01-22 20:04:00",
+											"failed_at": null,
+											"send_attempt_count": 1,
+											"max_send_attempts": 10,
+											"failure_reason": null,
+											"message_expiration_seconds": 259200,
+											"timezone": "GMT+2",
+											"sim": "SIM1",
+											"status": "delivered",
+											"type": "sent_to_mobile",
+											"created_at": "2025-01-22 20:02:43",
+											"updated_at": "2025-01-22 20:04:07"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successfully delivered the message. The server acknowledged."
+					}
+				}
+			}
+		},
+		"message-received": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Message Events"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"event": {
+										"type": "string",
+										"enum": ["message.phone.received"]
+									},
+									"data": {
+										"$ref": "#/components/schemas/Message"
+									}
+								},
+								"required": ["event", "data"]
+							},
+							"examples": {
+								"Example": {
+									"value": {
+										"event": "message.phone.received",
+										"data": {
+											"id": "9e08197f-2481-4b4e-b034-b0eeefee580e",
+											"request_id": "9e08197f-24f7-4550-b9f5-c1fd4d53b3a2",
+											"phone": {
+												"id": "9defcf1e-552c-4bef-a843-872edec576ef",
+												"user_id": "9cbff1d0-6c37-4612-a8bb-6db042991361",
+												"phone_number": "+201498274892",
+												"name": "john doe",
+												"sim": "SIM1",
+												"max_send_attempts": 10,
+												"message_expiration_seconds": 259200,
+												"missed_call_auto_reply_message": null,
+												"is_online": true,
+												"last_online_at": "2025-01-21 20:50:26",
+												"last_offline_at": "2025-01-21 19:48:04",
+												"last_message_at": "2025-01-22 19:51:23",
+												"last_missed_call_at": null,
+												"last_heartbeat_at": "2025-01-22 20:03:31",
+												"heartbeat_enabled_at": "2025-01-21 20:50:26",
+												"timezone": "GMT+2",
+												"created_at": "2025-01-10 18:16:16",
+												"updated_at": "2025-01-22 20:03:31"
+											},
+											"message_thread_id": "9e081888-2fdb-424a-ac39-df5168d9553c",
+											"phone_id": "9defcf1e-552c-4bef-a843-872edec576ef",
+											"from_phone_number": "+201422904893",
+											"to_phone_number": "+201133929839",
+											"content": "test message received",
+											"send_duration": null,
+											"schedule_on_phone_at": null,
+											"sent_at": null,
+											"last_attempted_at": null,
+											"delivered_at": null,
+											"received_at": "2025-01-22 20:04:04",
+											"expired_at": null,
+											"schedule_send_at": null,
+											"failed_at": null,
+											"send_attempt_count": null,
+											"max_send_attempts": 10,
+											"failure_reason": null,
+											"message_expiration_seconds": 259200,
+											"timezone": "GMT+2",
+											"sim": "SIM1",
+											"status": "received",
+											"type": "received_from_mobile",
+											"created_at": "2025-01-22 20:04:06",
+											"updated_at": "2025-01-22 20:04:06"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successfully received the message. The server acknowledged."
+					}
+				}
+			}
+		},
+		"message-scheduled": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Message Events"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"event": {
+										"type": "string",
+										"enum": ["message.notification.scheduled"]
+									},
+									"data": {
+										"$ref": "#/components/schemas/Message"
+									}
+								},
+								"required": ["event", "data"]
+							},
+							"examples": {
+								"Example": {
+									"value": {
+										"event": "message.notification.scheduled",
+										"data": {
+											"id": "9e081e22-94ef-41d3-b8f2-cab2db1a030f",
+											"request_id": "133554b5-ae44-44a0-8f4f-7bbac5657a11",
+											"phone": {
+												"id": "9defcf1e-552c-4bef-a843-872edec576ef",
+												"user_id": "9cbff1d0-6c37-4612-a8bb-6db042991361",
+												"phone_number": "+201479837429",
+												"name": "john doe",
+												"sim": "SIM1",
+												"max_send_attempts": 10,
+												"message_expiration_seconds": 259200,
+												"missed_call_auto_reply_message": null,
+												"is_online": true,
+												"last_online_at": "2025-01-21 20:50:26",
+												"last_offline_at": "2025-01-21 19:48:04",
+												"last_message_at": "2025-01-22 19:51:23",
+												"last_missed_call_at": null,
+												"last_heartbeat_at": "2025-01-22 20:03:31",
+												"heartbeat_enabled_at": "2025-01-21 20:50:26",
+												"timezone": "GMT+2",
+												"created_at": "2025-01-10 18:16:16",
+												"updated_at": "2025-01-22 20:03:31"
+											},
+											"message_thread_id": "9e0631d1-203e-468c-a34b-6026ea43b6b8",
+											"phone_id": "9defcf1e-552c-4bef-a843-872edec576ef",
+											"from_phone_number": "+201478927398",
+											"to_phone_number": "+201891838278",
+											"content": "test message scheduled",
+											"send_duration": null,
+											"schedule_on_phone_at": null,
+											"sent_at": null,
+											"last_attempted_at": "2025-01-22 20:17:05",
+											"delivered_at": null,
+											"received_at": null,
+											"expired_at": null,
+											"schedule_send_at": "2025-01-22 20:20:00",
+											"failed_at": null,
+											"send_attempt_count": null,
+											"max_send_attempts": 10,
+											"failure_reason": null,
+											"message_expiration_seconds": 259200,
+											"timezone": "GMT+2",
+											"sim": "SIM1",
+											"status": "scheduled",
+											"type": "sent_to_mobile",
+											"created_at": "2025-01-22 20:17:05",
+											"updated_at": "2025-01-22 20:17:05"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successfully received the message. The server acknowledged the information and returned status 200, indicating successful data reception."
+					}
+				}
+			}
+		},
+		"message-sent": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Message Events"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"event": {
+										"type": "string",
+										"enum": ["message.phone.sent"]
+									},
+									"data": {
+										"$ref": "#/components/schemas/Message"
+									}
+								},
+								"required": ["event", "data"]
+							},
+							"examples": {
+								"Example": {
+									"value": {
+										"event": "message.phone.sent",
+										"data": {
+											"id": "9e0818ff-a1ce-435a-b17b-6205cd8dd6c3",
+											"request_id": "133554b5-ae44-44a0-8f4f-7bbac5657a11",
+											"message_thread_id": "9e08187b-10e5-4de9-b9d2-ee9303d5eae0",
+											"phone_id": "9dedf71e-97bf-47eb-8df5-3088a7865603",
+											"from_phone_number": "+201348974238",
+											"to_phone_number": "+201478398428",
+											"content": "test message sent",
+											"send_duration": null,
+											"schedule_on_phone_at": "2025-01-22 20:04:01",
+											"sent_at": "2025-01-22 20:04:03",
+											"last_attempted_at": "2025-01-22 20:04:01",
+											"delivered_at": null,
+											"received_at": null,
+											"expired_at": null,
+											"schedule_send_at": "2025-01-22 20:04:00",
+											"failed_at": null,
+											"send_attempt_count": 1,
+											"max_send_attempts": 10,
+											"failure_reason": null,
+											"message_expiration_seconds": 259200,
+											"timezone": "GMT+2",
+											"sim": "SIM1",
+											"status": "sent",
+											"type": "sent_to_mobile",
+											"created_at": "2025-01-22 20:02:43",
+											"updated_at": "2025-01-22 20:04:05"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successfully received the message. The server acknowledged the information and returned status 200, indicating successful data reception."
+					}
+				}
+			}
+		},
+		"message-expired": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Message Events"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"event": {
+										"type": "string",
+										"enum": ["message.send.expired"]
+									},
+									"data": {
+										"$ref": "#/components/schemas/Message"
+									}
+								},
+								"required": ["event", "data"]
+							},
+							"examples": {
+								"Example": {
+									"value": {
+										"event": "message.send.expired",
+										"data": {
+											"id": "9e0818ff-a1ce-435a-b17b-6205cd8dd6c3",
+											"request_id": "133554b5-ae44-44a0-8f4f-7bbac5657a11",
+											"message_thread_id": "9e08187b-10e5-4de9-b9d2-ee9303d5eae0",
+											"phone_id": "9dedf71e-97bf-47eb-8df5-3088a7865603",
+											"from_phone_number": "+201348974238",
+											"to_phone_number": "+201478398428",
+											"content": "test message expired",
+											"send_duration": null,
+											"schedule_on_phone_at": "2025-01-22 20:04:01",
+											"sent_at": "2025-01-22 20:04:03",
+											"last_attempted_at": "2025-01-22 20:04:01",
+											"delivered_at": null,
+											"received_at": null,
+											"expired_at": null,
+											"schedule_send_at": "2025-01-22 20:04:00",
+											"failed_at": null,
+											"send_attempt_count": 1,
+											"max_send_attempts": 10,
+											"failure_reason": null,
+											"message_expiration_seconds": 259200,
+											"timezone": "GMT+2",
+											"sim": "SIM1",
+											"status": "expired",
+											"type": "sent_to_mobile",
+											"created_at": "2025-01-22 20:02:43",
+											"updated_at": "2025-01-22 20:04:05"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successfully received the message. The server acknowledged the information and returned status 200, indicating successful data reception."
+					}
+				}
+			}
+		},
+		"message-call-missed": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Message Events"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"event": {
+										"type": "string",
+										"enum": ["message.call.missed"]
+									},
+									"data": {
+										"$ref": "#/components/schemas/MissedCall"
+									}
+								},
+								"required": ["event", "data"]
+							},
+							"examples": {
+								"Example": {
+									"value": {
+										"event": "message.call.missed",
+										"data": {
+											"message_id": "9e0818ff-a1ce-435a-b17b-6205cd8dd6c3",
+											"from_phone_number": "+201348974238",
+											"sim": "SIM1",
+											"received_at": null,
+											"response_message_id": "9e0818ff-a1ce-435a-b17b-6205cd8dd6c3",
+											"created_at": "2025-01-22 20:02:43",
+											"updated_at": "2025-01-22 20:04:05"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successfully received the message. The server acknowledged the information and returned status 200, indicating successful data reception."
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"parameters": {
+			"ApiVersionHeader": {
+				"name": "x-apiVersion",
+				"in": "header",
+				"required": true,
+				"description": "Current API version.",
+				"example": "1.0.0",
+				"schema": {
+					"type": "string"
+				}
+			},
+			"InstanceIdHeader": {
+				"name": "x-instanceId",
+				"in": "header",
+				"required": true,
+				"description": "Instance UUID of the connected WhatsApp instance.",
+				"example": "123e4567-e89b-12d3-a456-426614174000",
+				"schema": {
+					"type": "string"
+				}
+			},
+			"UserIdHeader": {
+				"name": "x-userId",
+				"in": "header",
+				"required": true,
+				"description": "User UUID associated with the connected WhatsApp instance.",
+				"example": "123e4567-e89b-12d3-a456-426614174000",
+				"schema": {
+					"type": "string"
+				}
+			}
+		},
+		"schemas": {
+			"Heartbeat": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"phone_id": {
+						"type": "string"
+					},
+					"battery_level": {
+						"type": "string"
+					},
+					"is_charging": {
+						"type": "boolean"
+					},
+					"local_timestamp": {
+						"type": "string"
+					},
+					"app_version": {
+						"type": "null"
+					},
+					"created_at": {
+						"type": "string"
+					},
+					"updated_at": {
+						"type": "string"
+					}
+				}
+			},
+			"Phone": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"user_id": {
+						"type": "string"
+					},
+					"phone_number": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"sim": {
+						"type": "string"
+					},
+					"max_send_attempts": {
+						"type": "integer"
+					},
+					"message_expiration_seconds": {
+						"type": "integer"
+					},
+					"missed_call_auto_reply_message": {
+						"type": "null"
+					},
+					"is_online": {
+						"type": "boolean"
+					},
+					"last_online_at": {
+						"type": "string"
+					},
+					"last_offline_at": {
+						"type": "string"
+					},
+					"last_message_at": {
+						"type": "string"
+					},
+					"last_missed_call_at": {
+						"type": "null"
+					},
+					"last_heartbeat_at": {
+						"type": "string"
+					},
+					"heartbeat_enabled_at": {
+						"type": "string"
+					},
+					"timezone": {
+						"type": "string"
+					},
+					"created_at": {
+						"type": "string"
+					},
+					"updated_at": {
+						"type": "string"
+					}
+				}
+			},
+			"Message": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"request_id": {
+						"type": "string"
+					},
+					"message_thread_id": {
+						"type": "string"
+					},
+					"phone_id": {
+						"type": "string"
+					},
+					"from_phone_number": {
+						"type": "string"
+					},
+					"to_phone_number": {
+						"type": "string"
+					},
+					"content": {
+						"type": "string"
+					},
+					"send_duration": {
+						"type": "null"
+					},
+					"schedule_on_phone_at": {
+						"type": "string"
+					},
+					"sent_at": {
+						"type": "string"
+					},
+					"last_attempted_at": {
+						"type": "string"
+					},
+					"delivered_at": {
+						"type": "string"
+					},
+					"received_at": {
+						"type": "null"
+					},
+					"expired_at": {
+						"type": "null"
+					},
+					"schedule_send_at": {
+						"type": "null"
+					},
+					"failed_at": {
+						"type": "null"
+					},
+					"send_attempt_count": {
+						"type": "integer"
+					},
+					"max_send_attempts": {
+						"type": "integer"
+					},
+					"failure_reason": {
+						"type": "null"
+					},
+					"message_expiration_seconds": {
+						"type": "integer"
+					},
+					"timezone": {
+						"type": "string"
+					},
+					"sim": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"created_at": {
+						"type": "string"
+					},
+					"updated_at": {
+						"type": "string"
+					}
+				}
+			},
+			"MissedCall": {
+				"type": "object",
+				"properties": {
+					"message_id": {
+						"type": "string"
+					},
+					"from_phone_number": {
+						"type": "string"
+					},
+					"sim": {
+						"type": "string"
+					},
+					"received_at": {
+						"type": "string"
+					},
+					"response_message_id": {
+						"type": ["string", "null"]
+					}
+				}
+			}
+		}
+	}
+}

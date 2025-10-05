@@ -123,7 +123,33 @@
 						]
 					},
 					{
-						"group": "SMS Webhooks"
+						"group": "SMS Webhooks",
+						"openapi": "/api-reference/sms-webhooks/sms-webhooks.json",
+						"pages": [
+							"api-reference/sms-webhooks/introduction",
+							{
+								"group": "Heartbeats",
+								"pages": [
+									"api-reference/sms-webhooks/heartbeats/heartbeat-disabled",
+									"api-reference/sms-webhooks/heartbeats/heartbeat-missed",
+									"api-reference/sms-webhooks/heartbeats/heartbeat-offline",
+									"api-reference/sms-webhooks/heartbeats/heartbeat-online",
+									"api-reference/sms-webhooks/heartbeats/heartbeat-received"
+								]
+							},
+							{
+								"group": "Messages Events",
+								"pages": [
+									"api-reference/sms-webhooks/messages-events/message-sent",
+									"api-reference/sms-webhooks/messages-events/message-delivered",
+									"api-reference/sms-webhooks/messages-events/message-failed",
+									"api-reference/sms-webhooks/messages-events/message-received",
+									"api-reference/sms-webhooks/messages-events/message-scheduled",
+									"api-reference/sms-webhooks/messages-events/message-call-missed",
+									"api-reference/sms-webhooks/messages-events/message-expired"
+								]
+							}
+						]
 					}
 				]
 			}
