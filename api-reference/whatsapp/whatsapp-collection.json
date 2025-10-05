@@ -1,8 +1,5 @@
 {
-	"openapi": "3.0.0",
-	"x-stoplight": {
-		"id": "jtah7ewhmvdmk"
-	},
+	"openapi": "3.1.0",
 	"info": {
 		"version": "v1.0",
 		"title": "Hypersender WhatsApp API Docs",

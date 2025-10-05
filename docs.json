@@ -21,6 +21,7 @@
 		"tabs": [
 			{
 				"tab": "Guides",
+				"icon": "book",
 				"groups": [
 					{
 						"group": "Hypersender",
@@ -46,7 +47,7 @@
 					},
 					{
 						"group": "WhatsApp API",
-						"openapi": "/api-reference/whatsapp/openapi.json",
+						"openapi": "/api-reference/whatsapp/whatsapp-collection.json",
 						"pages": [
 							{
 								"group": "Send Messages",
@@ -100,12 +101,29 @@
 				"icon": "message",
 				"groups": [
 					{
-						"group": "API documentation",
+						"group": "Overview",
 						"pages": ["api-reference/sms/introduction", "api-reference/sms/how-to-send-sms-message-in-postman"]
 					},
 					{
-						"group": "Endpoints",
-						"openapi": "/api-reference/sms/openapi.json"
+						"group": "SMS API",
+						"openapi": "/api-reference/sms/sms-collection.json",
+						"pages": [
+							{
+								"group": "Messages",
+								"pages": ["api-reference/sms/messages/index-messages", "api-reference/sms/messages/send-message", "api-reference/sms/messages/delete-message"]
+							},
+							{
+								"group": "Message Threads",
+								"pages": ["api-reference/sms/message-threads/message-threads", "api-reference/sms/message-threads/edit-message-thread", "api-reference/sms/message-threads/delete-message-thread"]
+							},
+							{
+								"group": "Heartbeats",
+								"pages": ["api-reference/sms/heartbeats/heartbeats"]
+							}
+						]
+					},
+					{
+						"group": "SMS Webhooks"
 					}
 				]
 			}

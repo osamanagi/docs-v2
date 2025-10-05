@@ -1,0 +1,7 @@
+---
+title: "Index Messages"
+description: "Retrieve a list of messages with filtering and pagination options."
+openapi: "/api-reference/sms/sms-collection.json GET /{instance}/messages"
+---
+
+This endpoint will index all of the messages sent and received based on various criteria, including searching with request id and messages attributes, with paging limited to 50 messages per response. Default sort is by `last_updated_at`.

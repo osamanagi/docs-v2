@@ -1,0 +1,11 @@
+---
+title: "Message threads"
+description: "Index all contacts a phone number has communicated with."
+openapi: "/api-reference/sms/sms-collection.json GET /{instance}/message-threads"
+---
+
+This endpoint will index all of the contacts which a phone number has communicated with (threads).
+
+with paging limited to `50 messages` per response.
+
+It will be sorted by `updated_at` in descending order.
