@@ -1,0 +1,33 @@
+---
+title: "Send Voice"
+description: "Send voice messages to WhatsApp users for more engaging and personal communication."
+openapi: "/api-reference/whatsapp/openapi.json POST /{instance}/send-voice"
+---
+
+This specialized endpoint will allow you to send voice as if you were recording directly in the WhatsApp application.
+
+## You can send voice messages in two ways:
+
+## Provide a URL for the voice audio.
+
+<Frame>
+<img src="/images/docs/whatsapp/img/send-voice-url.jpeg" alt="send-voice-url" />
+</Frame>
+
+<Warning>
+  Please note that the URL must be publicly accessible and not require any authentication or special headers to access the file.
+</Warning>
+
+***
+
+## Send the voice audio it self as a file upload.
+
+<Frame>
+<img src="/images/docs/whatsapp/img/send-voice-file.jpeg" alt="send-voice-file" />
+</Frame>
+
+***
+
+<Frame>
+<img src="/images/docs/whatsapp/img/send-voice-preview.jpeg" alt="send-voice-preview" />
+</Frame>

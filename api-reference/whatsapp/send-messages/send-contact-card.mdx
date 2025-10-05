@@ -1,0 +1,44 @@
+---
+title: "send-contact-card"
+---
+
+```
+POST 
+/:instance/send-contact-card
+```
+
+## Send Contact Card in Chat[​](#send-contact-card-in-chat "Direct link to Send Contact Card in Chat")
+
+You can send a contact card in a chat in two ways:
+
+* By providing the vcard:
+
+example:
+
+```
+  {    "vcard": "BEGIN:VCARD\nVERSION:3.0\nFN:Jane Doe\nORG:Company Name;\nTEL;type=CELL;type=VOICE;waid=911111111111:+111111111111\nEND:VCARD"  }
+```
+
+* By providing the contact info:
+
+example:
+
+```
+    {      "vcard": null,      "fullName": "john doe",      "organization": "hypersender",      "phoneNumber": "+1111111111111",      "whatsappId": "911111111111"    }
+```
+
+![Hypersender Logo](/images/docs/whatsapp/img/send-contact-card.png)
+
+## Request[​](#request "Direct link to Request")
+
+## Responses[​](#responses "Direct link to Responses")
+
+* 201
+* 422
+* 500
+
+Successful response
+
+Validation Error
+
+Internal Server Error

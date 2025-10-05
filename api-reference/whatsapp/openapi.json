@@ -1643,9 +1643,8 @@
 		},
 		"/{instance}/send-voice": {
 			"post": {
+				"x-hidden": true,
 				"tags": ["Send Messages"],
-				"summary": "Send Voice",
-				"description": "## Send Voice Message\n\nThis specialized endpoint will allow you to send voice as if you were recording directly in the WhatsApp application.\n\nYou can send files in two ways:\n\nProvide a URL for the voice audio.\n\n**Please note that the URL must be publicly accessible and not require any authentication or special headers to access the file.**\n\nSend the voice audio it self as a file upload.",
 				"parameters": [
 					{
 						"name": "Accept",
@@ -1693,41 +1692,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"allOf": [
-									{
-										"$ref": "#/components/schemas/SendMessageRequest"
-									},
-									{
-										"type": "object",
-										"properties": {
-											"url": {
-												"type": "string",
-												"description": "url to send | required without `file`"
-											},
-											"file": {
-												"type": "string",
-												"description": "file to send required without `url`"
-											},
-											"caption": {
-												"type": "string",
-												"description": "caption for the file\r\n"
-											},
-											"reply_to": {
-												"type": "string",
-												"description": "reply to message id\r\n"
-											}
-										},
-										"required": ["url", "file"]
-									}
-								],
-								"x-examples": {
-									"Example 1": {
-										"recipient": "201065684630",
-										"audioMessage": {
-											"url": "http://commondatastorage.googleapis.com/codeskulptor-assets/week7-brrring.m4a"
-										}
-									}
-								}
+								"$ref": "#/components/schemas/SendVoiceRequest"
 							},
 							"examples": {
 								"Example 1": {
@@ -1905,10 +1870,8 @@
 		},
 		"/{instance}/forward-message": {
 			"post": {
+				"x-hidden": true,
 				"tags": ["Send Messages"],
-				"summary": "forward message",
-				"description": "## Forward a Message\n\nYou can forward a message to another chat (that you chatted before, otherwise it may fail):\n\n- Chat\n\n- Group\n\n- Recipient",
-				"operationId": "wa-forward-message",
 				"parameters": [
 					{
 						"name": "Accept",
@@ -1959,26 +1922,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"allOf": [
-									{
-										"$ref": "#/components/schemas/SendMessageRequest"
-									},
-									{
-										"type": "string",
-										"properties": {
-											"messageId": {
-												"type": "string"
-											}
-										},
-										"required": ["messageId"]
-									}
-								],
-								"x-examples": {
-									"Example 1": {
-										"chatId": "111111111111@c.us",
-										"messageId": "false_111111111111@c.us_3EB08F6AD2A432386EFA0E"
-									}
-								}
+								"$ref": "#/components/schemas/ForwardMessageRequest"
 							},
 							"examples": {
 								"Example 1": {
@@ -2203,10 +2147,8 @@
 		},
 		"/{instance}/send-seen": {
 			"post": {
+				"x-hidden": true,
 				"tags": ["Send Messages"],
-				"summary": "send seen",
-				"description": "## Send Seen Webhook\n\nIf you get a new message via 🔄 Webhooks and want to reply to that message, you need to first send that you’ve seen the message (double green tick).",
-				"operationId": "wa-send-seen",
 				"parameters": [
 					{
 						"name": "Accept",
@@ -2257,31 +2199,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"allOf": [
-									{
-										"$ref": "#/components/schemas/SendMessageRequest"
-									},
-									{
-										"type": "string",
-										"properties": {
-											"messageId": {
-												"type": "string"
-											},
-											"participant": {
-												"type": "string",
-												"description": "Send seen for Group Message you need to provide participant field"
-											}
-										},
-										"required": ["messageId"]
-									}
-								],
-								"x-examples": {
-									"Example 1": {
-										"chatId": "111111111111@c.us",
-										"messageId": "false_111111111111@c.us_3EB08F6AD2A432386EFA0E",
-										"participant": "111111111111@c.us"
-									}
-								}
+								"$ref": "#/components/schemas/SendSeenRequest"
 							},
 							"examples": {
 								"Example 1": {
@@ -2392,10 +2310,8 @@
 		},
 		"/{instance}/read-chat": {
 			"post": {
+				"x-hidden": true,
 				"tags": ["Send Messages"],
-				"summary": "read chat",
-				"description": "## Read messages\n\nYou can mark all unread messages in the chat as read (double blue checkmark) using one query:\n\nIt’ll find all unread messages in the chat and mark them as read.",
-				"operationId": "wa-read-chat",
 				"parameters": [
 					{
 						"name": "Accept",
@@ -2476,16 +2392,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"allOf": [
-									{
-										"$ref": "#/components/schemas/SendMessageRequest"
-									}
-								],
-								"x-examples": {
-									"Example 1": {
-										"chatId": "111111111111@c.us"
-									}
-								}
+								"$ref": "#/components/schemas/ReadChatRequest"
 							},
 							"examples": {
 								"Example 1": {
@@ -2597,10 +2504,8 @@
 		},
 		"/{instance}/start-typing": {
 			"post": {
+				"x-hidden": true,
 				"tags": ["Send Messages"],
-				"summary": "start typing",
-				"description": "## Start Typing\n\nStart typing in the chat.",
-				"operationId": "wa-start-typing",
 				"parameters": [
 					{
 						"name": "Accept",
@@ -2651,16 +2556,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"allOf": [
-									{
-										"$ref": "#/components/schemas/SendMessageRequest"
-									}
-								],
-								"x-examples": {
-									"Example 1": {
-										"chatId": "111111111111@c.us"
-									}
-								}
+								"$ref": "#/components/schemas/StartTypingRequest"
 							},
 							"examples": {
 								"Example 1": {
@@ -2774,10 +2670,8 @@
 		},
 		"/{instance}/stop-typing": {
 			"post": {
+				"x-hidden": true,
 				"tags": ["Send Messages"],
-				"summary": "stop typing",
-				"description": "## Stop Typing\n\nstop typing in the chat.",
-				"operationId": "wa-stop-typing",
 				"parameters": [
 					{
 						"name": "Accept",
@@ -2828,16 +2722,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"allOf": [
-									{
-										"$ref": "#/components/schemas/SendMessageRequest"
-									}
-								],
-								"x-examples": {
-									"Example 1": {
-										"chatId": "111111111111@c.us"
-									}
-								}
+								"$ref": "#/components/schemas/StopTypingRequest"
 							},
 							"examples": {
 								"Example 1": {
@@ -2951,10 +2836,8 @@
 		},
 		"/{instance}/send-poll": {
 			"post": {
+				"x-hidden": true,
 				"tags": ["Send Messages"],
-				"summary": "send-poll",
-				"description": "## Send Poll to Chat\n\nYou can create a poll in a chat.",
-				"operationId": "wa-send-poll",
 				"parameters": [
 					{
 						"name": "Accept",
@@ -3003,52 +2886,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"allOf": [
-									{
-										"$ref": "#/components/schemas/SendMessageRequest"
-									},
-									{
-										"type": "string",
-										"properties": {
-											"reply_to": {
-												"type": "string",
-												"description": "Reply to chat ID"
-											},
-											"poll": {
-												"type": "object",
-												"properties": {
-													"name": {
-														"type": "string",
-														"description": "Poll question"
-													},
-													"options": {
-														"type": "array",
-														"items": {
-															"type": "string"
-														},
-														"description": "Poll options"
-													},
-													"multipleAnswers": {
-														"type": "boolean",
-														"description": "Allow multiple answers"
-													}
-												}
-											}
-										},
-										"required": ["name", "options"]
-									}
-								],
-								"x-examples": {
-									"Example 1": {
-										"chatId": "1111111111111@c.us",
-										"reply_to": "string",
-										"poll": {
-											"name": "How are you?",
-											"options": "Awesome! Good! Not bad!",
-											"multipleAnswers": false
-										}
-									}
-								}
+								"$ref": "#/components/schemas/SendPollRequest"
 							},
 							"examples": {
 								"Example 1": {
@@ -3259,10 +3097,8 @@
 		},
 		"/{instance}/send-contact-card": {
 			"post": {
+				"x-hidden": true,
 				"tags": ["Send Messages"],
-				"summary": "send-contact-card",
-				"description": "## Send Contact Card in Chat\n\nYou can send a contact card in a chat in two ways:\n\n- By providing the vcard:\n\nexample:\n```json\n  {\n    \"vcard\": \"BEGIN:VCARD\\nVERSION:3.0\\nFN:Jane Doe\\nORG:Company Name;\\nTEL;type=CELL;type=VOICE;waid=911111111111:+111111111111\\nEND:VCARD\"\n  }\n```\n- By providing the contact info:\n\nexample:\n```json\n    {\n      \"vcard\": null,\n      \"fullName\": \"john doe\",\n      \"organization\": \"hypersender\",\n      \"phoneNumber\": \"+1111111111111\",\n      \"whatsappId\": \"911111111111\"\n    }\n```",
-				"operationId": "wa-send-contact-card",
 				"parameters": [
 					{
 						"name": "Accept",
@@ -3311,59 +3147,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"allOf": [
-									{
-										"$ref": "#/components/schemas/SendMessageRequest"
-									},
-									{
-										"type": "string",
-										"properties": {
-											"contacts": {
-												"type": "array",
-												"items": {
-													"type": "object",
-													"properties": {
-														"vcard": {
-															"type": "string",
-															"description": "vcard string | required without `fullName`, `phoneNumber`"
-														},
-														"fullName": {
-															"type": "string",
-															"description": "Full name of the contact | required without `vcard`"
-														},
-														"organization": {
-															"type": "string",
-															"description": "Organization of the contact"
-														},
-														"phoneNumber": {
-															"type": "string",
-															"description": "Phone number of the contact | required without `vcard`"
-														},
-														"whatsappId": {
-															"type": "string",
-															"description": "Whatsapp ID of the contact"
-														}
-													}
-												}
-											}
-										},
-										"required": ["contacts", "vcard", "phoneNumber"]
-									}
-								],
-								"x-examples": {
-									"Example 1": {
-										"chatId": "1111111111111@c.us",
-										"contacts": [
-											{
-												"vcard": "BEGIN:VCARD\\nVERSION:3.0\\nFN:Jane Doe\\nORG:Company Name;\\nTEL;type=CELL;type=VOICE;waid=911111111111:+11111111111111\\nEND:VCARD",
-												"fullName": "nagi",
-												"organization": null,
-												"phoneNumber": 1111111111111,
-												"whatsappId": 911111111111
-											}
-										]
-									}
-								}
+								"$ref": "#/components/schemas/SendContactCardRequest"
 							},
 							"examples": {
 								"Example 1": {
@@ -3441,10 +3225,8 @@
 		},
 		"/{instance}/send-location": {
 			"post": {
+				"x-hidden": true,
 				"tags": ["Send Messages"],
-				"summary": "Send Location",
-				"description": "## Send Location\n\nSend location to a chat",
-				"operationId": "wa-send-location",
 				"parameters": [
 					{
 						"name": "Accept",
@@ -3491,46 +3273,10 @@
 					}
 				],
 				"requestBody": {
-					"description": "",
 					"content": {
 						"application/json": {
 							"schema": {
-								"allOf": [
-									{
-										"$ref": "#/components/schemas/SendMessageRequest"
-									},
-									{
-										"type": "string",
-										"properties": {
-											"latitude": {
-												"type": "number",
-												"description": "Latitude of the location"
-											},
-											"longitude": {
-												"type": "number",
-												"description": "Longitude of the location"
-											},
-											"title": {
-												"type": "string",
-												"description": "Title of the location"
-											},
-											"reply_to": {
-												"type": "string",
-												"description": "Reply to message id\r\n"
-											}
-										},
-										"required": ["latitude", "longitude"]
-									}
-								],
-								"x-examples": {
-									"Example 1": {
-										"chatId": "111111111111@c.us",
-										"latitude": 38.8937255,
-										"longitude": -77.0969763,
-										"title": "Our office",
-										"reply_to": "string"
-									}
-								}
+								"$ref": "#/components/schemas/SendLocationRequest"
 							},
 							"examples": {
 								"Example 1": {
@@ -3700,10 +3446,8 @@
 		},
 		"/{instance}/react-to-message": {
 			"put": {
+				"x-hidden": true,
 				"tags": ["Send Messages"],
-				"summary": "react-to-message",
-				"description": "## React to Message\n\nAdd a reaction to a message.",
-				"operationId": "wa-react-to-message",
 				"parameters": [
 					{
 						"name": "Accept",
@@ -3752,28 +3496,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"allOf": [
-									{
-										"type": "string",
-										"properties": {
-											"messageId": {
-												"type": "string",
-												"description": "Message ID"
-											},
-											"reaction": {
-												"type": "string",
-												"description": "Reaction to add"
-											}
-										},
-										"required": ["messageId", "reaction"]
-									}
-								],
-								"x-examples": {
-									"Example 1": {
-										"messageId": "false_111111111111@c.us_3EB08F6AD2A432386EFA0E",
-										"reaction": "👍"
-									}
-								}
+								"$ref": "#/components/schemas/ReactToMessageRequest"
 							},
 							"examples": {
 								"Example 1": {
@@ -3913,10 +3636,8 @@
 		},
 		"/{instance}/star-message": {
 			"put": {
+				"x-hidden": true,
 				"tags": ["Send Messages"],
-				"summary": "star message",
-				"description": "## Star a Message\n\nstar or unstar a message.",
-				"operationId": "wa-star-message",
 				"parameters": [
 					{
 						"name": "Accept",
@@ -3967,31 +3688,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"allOf": [
-									{
-										"$ref": "#/components/schemas/SendMessageRequest"
-									},
-									{
-										"type": "string",
-										"properties": {
-											"messageId": {
-												"type": "string"
-											},
-											"star": {
-												"type": "boolean",
-												"description": "star or unstar a message"
-											}
-										},
-										"required": ["messageId", "star"]
-									}
-								],
-								"x-examples": {
-									"Example 1": {
-										"chatId": "111111111111@c.us",
-										"messageId": "true_111111111111@c.us_3EB08F6AD2A432386EFA0E",
-										"star": true
-									}
-								}
+								"$ref": "#/components/schemas/StarMessageRequest"
 							},
 							"examples": {
 								"Example 1": {
@@ -4109,10 +3806,8 @@
 		},
 		"/{instance}/delete-message": {
 			"delete": {
+				"x-hidden": true,
 				"tags": ["Send Messages"],
-				"summary": "delete message",
-				"description": "## Delete message\n\nYou can delete messages from the chat.\n\nso if you want to delete a message from a specific chat pass the `chatId` and `messageId` in the query parameters.",
-				"operationId": "wa-delete-message",
 				"parameters": [
 					{
 						"name": "Accept",
@@ -4538,6 +4233,95 @@
 				},
 				"required": ["chatId"]
 			},
+			"SendVoiceRequest": {
+				"type": "object",
+				"properties": {
+					"chatId": { "type": "string", "description": "Contact number - see chatId docs", "example": "111111111111@c.us" },
+					"url": { "type": "string", "description": "url to send (required without file)" },
+					"file": { "type": "string", "description": "file to send (required without url)" },
+					"caption": { "type": "string", "description": "caption for the file" },
+					"reply_to": { "type": "string", "description": "reply to message id" }
+				},
+				"required": ["chatId"]
+			},
+			"ForwardMessageRequest": {
+				"type": "object",
+				"properties": {
+					"chatId": { "type": "string", "description": "Contact number", "example": "111111111111@c.us" },
+					"messageId": { "type": "string", "description": "Message ID to forward" }
+				},
+				"required": ["chatId", "messageId"]
+			},
+			"SendSeenRequest": {
+				"type": "object",
+				"properties": {
+					"chatId": { "type": "string", "example": "111111111111@c.us" },
+					"messageId": { "type": "string" },
+					"participant": { "type": "string", "description": "Participant JID for group messages" }
+				},
+				"required": ["chatId", "messageId"]
+			},
+			"ReadChatRequest": {
+				"type": "object",
+				"properties": { "chatId": { "type": "string", "example": "111111111111@c.us" } },
+				"required": ["chatId"]
+			},
+			"ReactToMessageRequest": {
+				"type": "object",
+				"properties": {
+					"chatId": {
+						"type": "string",
+						"example": "111111111111@c.us"
+					},
+					"messageId": {
+						"type": "string",
+						"description": "Message ID"
+					},
+					"reaction": {
+						"type": "string",
+						"description": "Reaction to add"
+					}
+				},
+				"required": ["chatId"]
+			},
+			"StartTypingRequest": {
+				"type": "object",
+				"properties": { "chatId": { "type": "string", "example": "111111111111@c.us" } },
+				"required": ["chatId"]
+			},
+			"StopTypingRequest": {
+				"type": "object",
+				"properties": { "chatId": { "type": "string", "example": "111111111111@c.us" } },
+				"required": ["chatId"]
+			},
+			"SendPollRequest": {
+				"type": "object",
+				"properties": {
+					"chatId": { "type": "string", "example": "1111111111111@c.us" },
+					"reply_to": { "type": "string" },
+					"poll": { "type": "object", "properties": { "name": { "type": "string" }, "options": { "type": "array", "items": { "type": "string" } }, "multipleAnswers": { "type": "boolean" } } }
+				},
+				"required": ["chatId", "poll"]
+			},
+			"SendContactCardRequest": {
+				"type": "object",
+				"properties": {
+					"chatId": { "type": "string", "example": "1111111111111@c.us" },
+					"contacts": { "type": "array", "items": { "type": "object", "properties": { "vcard": { "type": "string" }, "fullName": { "type": "string" }, "organization": { "type": "string" }, "phoneNumber": { "type": "string" }, "whatsappId": { "type": "string" } } } }
+				},
+				"required": ["chatId", "contacts"]
+			},
+			"SendLocationRequest": {
+				"type": "object",
+				"properties": {
+					"chatId": { "type": "string", "example": "111111111111@c.us" },
+					"latitude": { "type": "number" },
+					"longitude": { "type": "number" },
+					"title": { "type": "string" },
+					"reply_to": { "type": "string" }
+				},
+				"required": ["chatId", "latitude", "longitude"]
+			},
 			"SendLinkPreview": {
 				"type": "object",
 				"properties": {
@@ -4556,6 +4340,24 @@
 					}
 				},
 				"required": ["chatId", "url"]
+			},
+			"StarMessageRequest": {
+				"type": "object",
+				"properties": {
+					"chatId": {
+						"type": "string",
+						"description": "Contact number - **learn what is [`chatId`](https://docs.hypersender.com/docs/whatsapp/what-is-chatid)**",
+						"example": "111111111111@c.us"
+					},
+					"messageId": {
+						"type": "string"
+					},
+					"star": {
+						"type": "boolean",
+						"description": "star or unstar a message"
+					}
+				},
+				"required": ["messageId", "star"]
 			},
 			"NotFoundError": {
 				"type": "object",
