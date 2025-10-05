@@ -152,6 +152,20 @@
 						]
 					}
 				]
+			},
+			{
+				"tab": "Packages and SDKs",
+				"icon": "box-open",
+				"groups": [
+					{
+						"group": "Overview",
+						"pages": ["packages-and-sdks/index"]
+					},
+					{
+						"group": "Laravel",
+						"pages": ["packages-and-sdks/laravel/installation"]
+					}
+				]
 			}
 		],
 		"global": {
