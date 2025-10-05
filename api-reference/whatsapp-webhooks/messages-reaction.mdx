@@ -1,0 +1,13 @@
+---
+title: "Message Reaction"
+description: "Receive events when a message is reacted to or a reaction is removed."
+openapi: "/api-reference/whatsapp-webhooks/whatsapp-webhooks.json webhook messages-reaction"
+---
+
+## message.reaction
+
+Receive events when a message is reacted to by a user (or yourself reacting to a message).
+
+- `payload.reaction.text` - emoji that was used to react to the message. It’ll be an empty string if the reaction was removed.
+
+- `payload.reaction.messageId` - id of the message that was reacted to.

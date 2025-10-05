@@ -76,7 +76,22 @@
 					},
 					{
 						"group": "Whatsapp Webhooks",
-						"pages": ["api-reference/whatsapp-webhooks/introduction"]
+						"openapi": "/api-reference/whatsapp-webhooks/whatsapp-webhooks.json",
+						"pages": [
+							"api-reference/whatsapp-webhooks/introduction",
+							{
+								"group": "Presence",
+								"pages": ["api-reference/whatsapp-webhooks/presence-update"]
+							},
+							{
+								"group": "Messages",
+								"pages": ["api-reference/whatsapp-webhooks/messages-any", "api-reference/whatsapp-webhooks/messages-reaction", "api-reference/whatsapp-webhooks/messages-ack", "api-reference/whatsapp-webhooks/messages-waiting", "api-reference/whatsapp-webhooks/messages-revoked"]
+							},
+							{
+								"group": "Poll",
+								"pages": ["api-reference/whatsapp-webhooks/poll-vote", "api-reference/whatsapp-webhooks/poll-vote-failed"]
+							}
+						]
 					}
 				]
 			},

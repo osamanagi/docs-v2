@@ -1,0 +1,1477 @@
+{
+	"openapi": "3.1.0",
+	"info": {
+		"title": "Hypersender WhatsApp Webhooks",
+		"description": "\n\n# Introduction\nThe Hypersender WhatsApp API offers a webhook-based integration that delivers real-time, event-driven notifications. This allows developers to monitor their connected WhatsApp instances or respond to specific events, ranging from message interactions to contact and media management.\n- **Status Updates**: Provides updates on the connection status of the connected WhatsApp instance, indicating whether the connection is open, closed, or in the process of connecting. It also updates the presence of chats in real-time, offering information on activities such as typing or recording a voice message.\n- **Chats**: Tracks interactions and status changes for chats. This includes the creation of new chats, updates to existing ones, and various chat-specific actions like archiving.\n- **Contacts**: Observes changes to the contacts associated with the connected WhatsApp instance. Any addition, removal, or update to a contact triggers a notification through the designated route.\n- **Messages**: Central to WhatsApp's core functionality, our API extensively supports message monitoring. This includes notifications for incoming messages, updates to message status, and messages sent through the API.",
+		"version": "1.0.0"
+	},
+	"components": {
+		"parameters": {
+			"ApiVersionHeader": {
+				"name": "x-apiVersion",
+				"in": "header",
+				"required": true,
+				"description": "Current API version.",
+				"example": "1.0.0",
+				"schema": {
+					"type": "string"
+				}
+			},
+			"InstanceIdHeader": {
+				"name": "x-instanceId",
+				"in": "header",
+				"required": true,
+				"description": "Instance UUID of the connected WhatsApp instance.",
+				"example": "123e4567-e89b-12d3-a456-426614174000",
+				"schema": {
+					"type": "string"
+				}
+			},
+			"UserIdHeader": {
+				"name": "x-userId",
+				"in": "header",
+				"required": true,
+				"description": "User UUID associated with the connected WhatsApp instance.",
+				"example": "123e4567-e89b-12d3-a456-426614174000",
+				"schema": {
+					"type": "string"
+				}
+			}
+		},
+		"schemas": {
+			"Chats": {
+				"type": "object",
+				"properties": {
+					"data": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"chatId": {
+									"type": "string"
+								},
+								"remoteJid": {
+									"type": "string"
+								},
+								"createdAt": {
+									"type": "string",
+									"format": "date-time"
+								}
+							}
+						}
+					}
+				}
+			},
+			"Contacts": {
+				"type": "object",
+				"properties": {
+					"data": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"contactId": {
+									"type": "string"
+								},
+								"pushName": {
+									"type": "string",
+									"description": "The name of the contact as displayed in the WhatsApp chat."
+								},
+								"remoteJid": {
+									"type": "string"
+								},
+								"pictureUrl": {
+									"type": "string"
+								},
+								"createdAt": {
+									"type": "string",
+									"format": "date-time"
+								}
+							}
+						}
+					}
+				}
+			},
+			"MessageModel": {
+				"type": "object",
+				"properties": {
+					"messageId": {
+						"type": "string"
+					},
+					"keyId": {
+						"type": "string"
+					},
+					"keyRemoteJid": {
+						"type": "string"
+					},
+					"keyParticipant": {
+						"type": "string"
+					},
+					"pushName": {
+						"type": "string"
+					},
+					"contentType": {
+						"type": "string"
+					},
+					"content": {
+						"type": "object",
+						"additionalProperties": {
+							"type": "object"
+						}
+					},
+					"source": {
+						"type": "string",
+						"enum": ["ios", "android", "web", "api"]
+					},
+					"messageTimestamp": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"Message": {
+				"type": "object",
+				"properties": {
+					"data": {
+						"$ref": "#/components/schemas/MessageModel"
+					}
+				}
+			},
+			"ListMessage": {
+				"type": "object",
+				"properties": {
+					"data": {
+						"type": "array",
+						"items": { "$ref": "#/components/schemas/MessageModel" }
+					}
+				}
+			},
+			"Instance": {
+				"type": "object",
+				"properties": {
+					"instanceId": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"state": {
+						"type": "string",
+						"enum": ["active", "inactive"]
+					},
+					"connection": {
+						"type": "string",
+						"enum": ["refused", "close", "open"]
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"ConnectionUpdate": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["connection.update"]
+					},
+					"data": {
+						"type": "object",
+						"properties": {
+							"state": {
+								"type": "string",
+								"enum": ["close", "connecting", "open"]
+							},
+							"statusReason": {
+								"type": "integer",
+								"format": "int32"
+							}
+						}
+					}
+				}
+			},
+			"PresenceUpdate": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["presence.update"]
+					},
+					"data": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string"
+							},
+							"event": {
+								"type": "string",
+								"enum": ["presence.update"]
+							},
+							"metadata": {
+								"type": "array",
+								"items": {
+									"type": "object"
+								}
+							},
+							"me": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"pushName": {
+										"type": "string"
+									}
+								}
+							},
+							"payload": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"presences": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"participant": {
+													"type": "string"
+												},
+												"lastKnownPresence": {
+													"type": "string"
+												},
+												"lastSeen": {
+													"type": ["string", "null"]
+												}
+											}
+										}
+									}
+								}
+							},
+							"instanceId": {
+								"type": "string"
+							},
+							"userId": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			},
+			"ChatsSet": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["chats.set"]
+					}
+				},
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/Chats"
+					}
+				]
+			},
+			"ContactsSet": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["contacts.set"]
+					}
+				},
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/Contacts"
+					}
+				]
+			},
+			"ChatsUpsert": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["chats.upsert"]
+					}
+				},
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/Chats"
+					}
+				]
+			},
+			"ChatsUpdate": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["chats.update"]
+					}
+				},
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/Chats"
+					}
+				]
+			},
+			"ContactsUpsert": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["contacts.upsert"]
+					}
+				},
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/Contacts"
+					}
+				]
+			},
+			"ContactsUpdate": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["contacts.update"]
+					}
+				},
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/Contacts"
+					}
+				]
+			},
+			"MessagesSet": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["messages.set"]
+					}
+				},
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/ListMessage"
+					}
+				]
+			},
+			"MessagesUpsert": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["messages.upsert"]
+					}
+				},
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/Message"
+					}
+				]
+			},
+			"MessageUpdate": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["messages.update"]
+					},
+					"data": {
+						"type": "object",
+						"properties": {
+							"messageStatusId": {
+								"type": "string"
+							},
+							"status": {
+								"type": "string",
+								"enum": ["PENDING", "ERROR", "SERVER_ACK", "DELIVERY_ACK", "READ", "PLAYED"],
+								"default": "PENDING"
+							},
+							"dateTime": {
+								"type": "string",
+								"format": "date-time"
+							},
+							"messageMessageId": {
+								"type": "string",
+								"description": "**Foreign Key**\nId da mensagem que está tendo o seu status modificado."
+							}
+						}
+					}
+				}
+			},
+			"PrepareMedia": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["prepared.media"]
+					},
+					"data": {
+						"type": "object",
+						"properties": {
+							"mediaId": {
+								"description": "The UUID that can be used to download the media file by calling /get-prepared-media-file endpoint.",
+								"type": "string"
+							},
+							"size": {
+								"type": "integer"
+							},
+							"filename": {
+								"type": "string"
+							},
+							"mimetype": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			},
+			"MessageAny": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["message.any"]
+					},
+					"data": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string"
+							},
+							"event": {
+								"type": "string",
+								"enum": ["message.any"]
+							},
+							"metadata": {
+								"type": "array",
+								"items": {
+									"type": "object"
+								}
+							},
+							"me": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"pushName": {
+										"type": "string"
+									}
+								}
+							},
+							"payload": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"timestamp": {
+										"type": "integer",
+										"format": "int32"
+									},
+									"from": {
+										"type": "string"
+									},
+									"fromMe": {
+										"type": "boolean"
+									},
+									"body": {
+										"type": "string"
+									},
+									"hasMedia": {
+										"type": "boolean"
+									},
+									"media": {
+										"type": ["object", "null"]
+									},
+									"ack": {
+										"type": ["integer", "null"]
+									},
+									"ackName": {
+										"type": "string"
+									},
+									"replyTo": {
+										"type": ["string", "null"]
+									},
+									"_data": {
+										"type": "object",
+										"properties": {
+											"key": {
+												"type": "object",
+												"properties": {
+													"remoteJid": {
+														"type": "string"
+													},
+													"fromMe": {
+														"type": "boolean"
+													},
+													"id": {
+														"type": "string"
+													}
+												}
+											},
+											"messageTimestamp": {
+												"type": "integer",
+												"format": "int32"
+											},
+											"pushName": {
+												"type": "string"
+											},
+											"broadcast": {
+												"type": "boolean"
+											},
+											"message": {
+												"type": "object",
+												"properties": {
+													"conversation": {
+														"type": "string"
+													},
+													"messageContextInfo": {
+														"type": "object",
+														"properties": {
+															"deviceListMetadata": {
+																"type": "object",
+																"properties": {
+																	"senderKeyHash": {
+																		"type": "string"
+																	},
+																	"senderTimestamp": {
+																		"type": "string"
+																	},
+																	"recipientKeyHash": {
+																		"type": "string"
+																	},
+																	"recipientTimestamp": {
+																		"type": "string"
+																	}
+																}
+															},
+															"deviceListMetadataVersion": {
+																"type": "integer"
+															},
+															"messageSecret": {
+																"type": "string"
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							},
+							"instanceId": {
+								"type": "string"
+							},
+							"userId": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			},
+			"MessageAck": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["message.ack"]
+					},
+					"data": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string"
+							},
+							"event": {
+								"type": "string",
+								"enum": ["message.ack"]
+							},
+							"metadata": {
+								"type": "array",
+								"items": {
+									"type": "object"
+								}
+							},
+							"me": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"pushName": {
+										"type": "string"
+									}
+								}
+							},
+							"payload": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"from": {
+										"type": "string"
+									},
+									"to": {
+										"type": "string"
+									},
+									"participant": {
+										"type": "string"
+									},
+									"fromMe": {
+										"type": "boolean"
+									},
+									"ack": {
+										"type": "integer"
+									},
+									"ackName": {
+										"type": "string"
+									}
+								}
+							},
+							"instanceId": {
+								"type": "string"
+							},
+							"userId": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			},
+			"MessageReaction": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["messages.reaction"]
+					},
+					"data": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string"
+							},
+							"event": {
+								"enum": ["messages.reaction"]
+							},
+							"metadata": {
+								"type": "array"
+							},
+							"me": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"pushName": {
+										"type": "string"
+									}
+								}
+							},
+							"payload": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"timestamp": {
+										"type": "integer",
+										"format": "int32"
+									},
+									"from": {
+										"type": "string"
+									},
+									"fromMe": {
+										"type": "boolean"
+									},
+									"reaction": {
+										"type": "object",
+										"properties": {
+											"text": {
+												"type": "string"
+											},
+											"messageId": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							},
+							"instanceId": {
+								"type": "string"
+							},
+							"userId": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			},
+			"MessageRevoked": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["message.revoked"]
+					},
+					"data": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string"
+							},
+							"event": {
+								"type": "string",
+								"enum": ["message.revoked"]
+							},
+							"metadata": {
+								"type": "array",
+								"items": {
+									"type": "object"
+								}
+							},
+							"me": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"pushName": {
+										"type": "string"
+									}
+								}
+							},
+							"payload": {
+								"type": "object",
+								"properties": {
+									"after": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"timestamp": {
+												"type": "integer",
+												"format": "int32"
+											},
+											"from": {
+												"type": "string"
+											},
+											"fromMe": {
+												"type": "boolean"
+											},
+											"body": {
+												"type": ["string", "null"]
+											},
+											"to": {
+												"type": "string"
+											},
+											"participant": {
+												"type": "string"
+											},
+											"hasMedia": {
+												"type": "boolean"
+											},
+											"media": {
+												"type": ["object", "null"]
+											},
+											"ack": {
+												"type": ["integer", "null"]
+											},
+											"ackName": {
+												"type": "string"
+											},
+											"replyTo": {
+												"type": ["string", "null"]
+											},
+											"_data": {
+												"type": "object",
+												"properties": {
+													"key": {
+														"type": "object",
+														"properties": {
+															"remoteJid": {
+																"type": "string"
+															},
+															"fromMe": {
+																"type": "boolean"
+															},
+															"id": {
+																"type": "string"
+															},
+															"participant": {
+																"type": "string"
+															}
+														}
+													},
+													"messageTimestamp": {
+														"type": "integer",
+														"format": "int32"
+													},
+													"pushName": {
+														"type": "string"
+													},
+													"broadcast": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "object",
+														"properties": {
+															"senderKeyDistributionMessage": {
+																"type": "object",
+																"properties": {
+																	"groupId": {
+																		"type": "string"
+																	},
+																	"axolotlSenderKeyDistributionMessage": {
+																		"type": "string"
+																	}
+																}
+															},
+															"protocolMessage": {
+																"type": "object",
+																"properties": {
+																	"key": {
+																		"type": "object",
+																		"properties": {
+																			"remoteJid": {
+																				"type": "string"
+																			},
+																			"fromMe": {
+																				"type": "boolean"
+																			},
+																			"id": {
+																				"type": "string"
+																			}
+																		}
+																	},
+																	"type": {
+																		"type": "string"
+																	}
+																}
+															},
+															"messageContextInfo": {
+																"type": "object",
+																"properties": {
+																	"deviceListMetadata": {
+																		"type": "object",
+																		"properties": {
+																			"recipientKeyHash": {
+																				"type": "string"
+																			},
+																			"recipientTimestamp": {
+																				"type": "string"
+																			}
+																		}
+																	},
+																	"deviceListMetadataVersion": {
+																		"type": "integer"
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									},
+									"before": {
+										"type": ["object", "null"]
+									},
+									"_data": {
+										"type": "object",
+										"properties": {
+											"key": {
+												"type": "object",
+												"properties": {
+													"remoteJid": {
+														"type": "string"
+													},
+													"fromMe": {
+														"type": "boolean"
+													},
+													"id": {
+														"type": "string"
+													},
+													"participant": {
+														"type": "string"
+													}
+												}
+											},
+											"messageTimestamp": {
+												"type": "integer",
+												"format": "int32"
+											},
+											"pushName": {
+												"type": "string"
+											},
+											"broadcast": {
+												"type": "boolean"
+											},
+											"message": {
+												"type": "object",
+												"properties": {
+													"senderKeyDistributionMessage": {
+														"type": "object",
+														"properties": {
+															"groupId": {
+																"type": "string"
+															},
+															"axolotlSenderKeyDistributionMessage": {
+																"type": "string"
+															}
+														}
+													},
+													"protocolMessage": {
+														"type": "object",
+														"properties": {
+															"key": {
+																"type": "object",
+																"properties": {
+																	"remoteJid": {
+																		"type": "string"
+																	},
+																	"fromMe": {
+																		"type": "boolean"
+																	},
+																	"id": {
+																		"type": "string"
+																	}
+																}
+															},
+															"type": {
+																"type": "string"
+															}
+														}
+													},
+													"messageContextInfo": {
+														"type": "object",
+														"properties": {
+															"deviceListMetadata": {
+																"type": "object",
+																"properties": {
+																	"recipientKeyHash": {
+																		"type": "string"
+																	},
+																	"recipientTimestamp": {
+																		"type": "string"
+																	}
+																}
+															},
+															"deviceListMetadataVersion": {
+																"type": "integer"
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							},
+							"instanceId": {
+								"type": "string"
+							},
+							"userId": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			},
+			"MessageWaiting": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["message.waiting"]
+					},
+					"data": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string"
+							},
+							"event": {
+								"type": "string",
+								"enum": ["message.waiting"]
+							},
+							"metadata": {
+								"type": "array",
+								"items": {
+									"type": "object"
+								}
+							},
+							"me": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"pushName": {
+										"type": "string"
+									}
+								}
+							},
+							"payload": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"from": {
+										"type": "string"
+									},
+									"to": {
+										"type": "string"
+									},
+									"participant": {
+										"type": "string"
+									},
+									"fromMe": {
+										"type": "boolean"
+									},
+									"ack": {
+										"type": "integer"
+									},
+									"ackName": {
+										"type": "string"
+									}
+								}
+							},
+							"instanceId": {
+								"type": "string"
+							},
+							"userId": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			},
+			"PollVote": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["poll.vote"]
+					},
+					"data": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string"
+							},
+							"event": {
+								"type": "string",
+								"enum": ["poll.vote"]
+							},
+							"metadata": {
+								"type": "array",
+								"items": {
+									"type": "object"
+								}
+							},
+							"me": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"pushName": {
+										"type": "string"
+									}
+								}
+							},
+							"payload": {
+								"type": "object",
+								"properties": {
+									"vote": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"to": {
+												"type": "string"
+											},
+											"from": {
+												"type": "string"
+											},
+											"fromMe": {
+												"type": "boolean"
+											},
+											"selectedOptions": {
+												"type": "array",
+												"items": {
+													"type": "string"
+												}
+											},
+											"timestamp": {
+												"type": "integer",
+												"format": "int64"
+											}
+										}
+									},
+									"poll": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"to": {
+												"type": "string"
+											},
+											"from": {
+												"type": "string"
+											},
+											"fromMe": {
+												"type": "boolean"
+											}
+										}
+									}
+								}
+							},
+							"instanceId": {
+								"type": "string"
+							},
+							"userId": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			},
+			"PollVoteFailed": {
+				"type": "object",
+				"properties": {
+					"event": {
+						"type": "string",
+						"enum": ["poll.vote.failed"]
+					},
+					"data": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string"
+							},
+							"event": {
+								"type": "string",
+								"enum": ["poll.vote.failed"]
+							},
+							"metadata": {
+								"type": "array",
+								"items": {
+									"type": "object"
+								}
+							},
+							"me": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"pushName": {
+										"type": "string"
+									}
+								}
+							},
+							"payload": {
+								"type": "object",
+								"properties": {
+									"vote": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"to": {
+												"type": "string"
+											},
+											"from": {
+												"type": "string"
+											},
+											"fromMe": {
+												"type": "boolean"
+											},
+											"selectedOptions": {
+												"type": "array"
+											},
+											"timestamp": {
+												"type": "integer",
+												"format": "int64"
+											}
+										}
+									},
+									"poll": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"to": {
+												"type": "string"
+											},
+											"from": {
+												"type": "string"
+											},
+											"fromMe": {
+												"type": "boolean"
+											}
+										}
+									}
+								}
+							},
+							"instanceId": {
+								"type": "string"
+							},
+							"userId": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"webhooks": {
+		"presence-update": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Presence"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PresenceUpdate"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "The server successfully received the user behavior data from the WhatsApp chat. Status 200 is returned, confirming the successful reception and processing of the provided data."
+					}
+				}
+			}
+		},
+		"messages-any": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Messages"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MessageAny"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "The API successfully processed the batch of messages and returned a status of 200, confirming successful receipt and synchronization."
+					}
+				}
+			}
+		},
+		"messages-reaction": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Messages"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MessageReaction"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "The API successfully processed the message reaction and returned a status of 200, confirming successful receipt and handling of the information."
+					}
+				}
+			}
+		},
+		"messages-ack": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Messages"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MessageAck"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "The API successfully processed the batch of messages and returned a status of 200, confirming successful receipt and synchronization."
+					}
+				}
+			}
+		},
+		"messages-waiting": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Messages"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MessageWaiting"
+							}
+						}
+					}
+				},
+
+				"responses": {
+					"200": {
+						"description": "The API successfully processed the batch of messages and returned a status of 200, confirming successful receipt and synchronization."
+					}
+				}
+			}
+		},
+		"messages-revoked": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Messages"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MessageRevoked"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "The API successfully processed the batch of messages and returned a status of 200, confirming successful receipt and synchronization."
+					}
+				}
+			}
+		},
+		"poll-vote": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Poll"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PollVote"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "The API successfully processed the batch of messages and returned a status of 200, confirming successful receipt and synchronization."
+					}
+				}
+			}
+		},
+		"poll-vote-failed": {
+			"post": {
+				"x-hidden": true,
+				"tags": ["Poll"],
+				"parameters": [
+					{
+						"$ref": "#/components/parameters/UserIdHeader"
+					},
+					{
+						"$ref": "#/components/parameters/InstanceIdHeader"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PollVoteFailed"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "The API successfully processed the batch of messages and returned a status of 200, confirming successful receipt and synchronization."
+					}
+				}
+			}
+		}
+	}
+}

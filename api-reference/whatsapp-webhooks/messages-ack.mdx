@@ -1,0 +1,22 @@
+---
+title: "Messages Ack"
+description: "For message delivery & read receipts."
+openapi: "/api-reference/whatsapp-webhooks/whatsapp-webhooks.json webhook messages-ack"
+---
+
+## message.ack
+
+Receive events when server or recipient gets the message, read or played it.
+
+AckName field contains message status (ack has the same meaning, but show the value in int, but we keep it for backward compatability, they much to each other)
+
+Possible message ack statuses:
+
+- ackName: ERROR, ack: -1
+- ackName: PENDING, ack: 0
+- ackName: SERVER, ack: 1
+- ackName: DEVICE, ack: 2
+- ackName: READ, ack: 3
+- ackName: PLAYED, ack: 4
+
+The payload may have more fields, it depends on the engine you use, but here’s a minimum amount that all engines send:

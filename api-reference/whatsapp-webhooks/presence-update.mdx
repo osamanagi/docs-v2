@@ -1,0 +1,13 @@
+---
+title: "Update User Chat Behavior"
+description: "Real-time updates on user chat activities like typing or recording voice messages."
+openapi: "/api-reference/whatsapp-webhooks/whatsapp-webhooks.json webhook presence-update"
+---
+
+## presence.update
+
+Provides real-time updates regarding the status of the whatsapp chats. Information like typing, recording a voice message, or other relevant activities, It's like seeing the chat got updated in real whatsapp app.
+
+`payload.id` indicates the chat - either direct chat with a contact or a group chat.
+
+`payload.id.[].participant` - certain participant presence status. For a direct chat there’s only one participant.
