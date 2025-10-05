@@ -941,10 +941,8 @@
 		},
 		"/{instance}/send-file": {
 			"post": {
+				"x-hidden": true,
 				"tags": ["Send Messages"],
-				"summary": "send-file",
-				"description": "## Send file Message\n\nSend a file (as a document/attachment) to a chat.\n\nYou can send files in two ways:\n\nProvide a URL for the file.\n\n**Please note that the URL must be publicly accessible and not require any authentication or special headers to access the file.**\n\nSend the file it self as a file upload.\n\nPossible file types are: `[png, jpg, jpeg, gif, mp3, mp4, avi, mkv, mov, flv, wav, ogg, webm, 3gp, flac, aac, wma, m4a, opus, pdf, doc, docx, xls, xlsx, ppt, pptx, txt, zip]`",
-				"operationId": "wa-send-file",
 				"parameters": [
 					{
 						"name": "Accept",
@@ -993,41 +991,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"allOf": [
-									{
-										"$ref": "#/components/schemas/SendMessageRequest"
-									},
-									{
-										"type": "string",
-										"properties": {
-											"url": {
-												"type": "string",
-												"description": "url to send\r\n (required without file)"
-											},
-											"file": {
-												"type": "string",
-												"description": "file to send\r\n (required without url)"
-											},
-											"filename": {
-												"type": "string",
-												"description": "filename for the file\r\n"
-											},
-											"mimetype": {
-												"type": "string",
-												"description": "mimetype for the file\r\n"
-											},
-											"caption": {
-												"type": "string",
-												"description": "caption for the file\r\n"
-											},
-											"reply_to": {
-												"type": "string",
-												"description": "reply to message id\r\n"
-											}
-										},
-										"required": ["url", "file"]
-									}
-								]
+								"$ref": "#/components/schemas/SendFileRequest"
 							},
 							"examples": {
 								"Example 1": {
@@ -1203,10 +1167,8 @@
 		},
 		"/{instance}/send-image": {
 			"post": {
+				"x-hidden": true,
 				"tags": ["Send Messages"],
-				"summary": "send-image",
-				"description": "## Send image Message\n\nSend images to the chat.\n\nYou can send files in two ways:\n\nProvide a URL for the image.\n\n**Please note that the URL must be publicly accessible and not require any authentication or special headers to access the file.**\n\n**Specify the `mimetype` of the image in the URL. Example: `image/png`**\n\nSend the image it self as a file upload.",
-				"operationId": "wa-send-image",
 				"parameters": [
 					{
 						"name": "Accept",
@@ -1255,41 +1217,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"allOf": [
-									{
-										"$ref": "#/components/schemas/SendMessageRequest"
-									},
-									{
-										"type": "string",
-										"properties": {
-											"url": {
-												"type": "string",
-												"description": "url to send\r\n (required without file)"
-											},
-											"file": {
-												"type": "string",
-												"description": "file to send\r\n (required without url)"
-											},
-											"filename": {
-												"type": "string",
-												"description": "filename for the file\r\n"
-											},
-											"mimetype": {
-												"type": "string",
-												"description": "mimetype for the file\r\n"
-											},
-											"caption": {
-												"type": "string",
-												"description": "caption for the file\r\n"
-											},
-											"reply_to": {
-												"type": "string",
-												"description": "reply to message id\r\n"
-											}
-										},
-										"required": ["url", "file"]
-									}
-								]
+								"$ref": "#/components/schemas/SendImageRequest"
 							},
 							"examples": {
 								"Example 1": {
@@ -1477,10 +1405,8 @@
 		},
 		"/{instance}/send-video": {
 			"post": {
+				"x-hidden": true,
 				"tags": ["Send Messages"],
-				"summary": "send-video",
-				"description": "## Send video Message\n\nSend videos to the chat.\n\nYou can send videos in two ways:\n\nProvide a URL for the video.\n\n**Please note that the URL must be publicly accessible and not require any authentication or special headers to access the file.**\n\n**By specifying the `asNote` property to `true`, the video will be sent as a whatsapp note video.**\n\n---\n\nSend the video it self as a file upload.",
-				"operationId": "wa-send-image",
 				"parameters": [
 					{
 						"name": "Accept",
@@ -1529,41 +1455,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"allOf": [
-									{
-										"$ref": "#/components/schemas/SendMessageRequest"
-									},
-									{
-										"type": "string",
-										"properties": {
-											"url": {
-												"type": "string",
-												"description": "url to send\r\n (required without file)"
-											},
-											"file": {
-												"type": "string",
-												"description": "file to send\r\n (required without url)"
-											},
-											"filename": {
-												"type": "string",
-												"description": "filename for the file\r\n"
-											},
-											"mimetype": {
-												"type": "string",
-												"description": "mimetype for the file\r\n"
-											},
-											"caption": {
-												"type": "string",
-												"description": "caption for the file\r\n"
-											},
-											"reply_to": {
-												"type": "string",
-												"description": "reply to message id\r\n"
-											}
-										},
-										"required": ["url", "file"]
-									}
-								]
+								"$ref": "#/components/schemas/SendVideoRequest"
 							},
 							"examples": {
 								"Example 1": {
@@ -4540,6 +4432,111 @@
 					}
 				},
 				"required": ["chatId", "text", "preview_title", "preview_description", "preview_url", "preview_image_url", "preview_image_file"]
+			},
+			"SendFileRequest": {
+				"type": "object",
+				"properties": {
+					"chatId": {
+						"type": "string",
+						"description": "Contact number - **learn what is [`chatId`](https://docs.hypersender.com/docs/whatsapp/what-is-chatid)**",
+						"example": "111111111111@c.us"
+					},
+					"url": {
+						"type": "string",
+						"description": "url to send (required without file)"
+					},
+					"file": {
+						"type": "string",
+						"description": "file to send (required without url)"
+					},
+					"filename": {
+						"type": "string",
+						"description": "filename for the file"
+					},
+					"mimetype": {
+						"type": "string",
+						"description": "mimetype for the file"
+					},
+					"caption": {
+						"type": "string",
+						"description": "caption for the file"
+					},
+					"reply_to": {
+						"type": "string",
+						"description": "reply to message id"
+					}
+				},
+				"required": ["chatId"]
+			},
+			"SendImageRequest": {
+				"type": "object",
+				"properties": {
+					"chatId": {
+						"type": "string",
+						"description": "Contact number - **learn what is [`chatId`](https://docs.hypersender.com/docs/whatsapp/what-is-chatid)**",
+						"example": "111111111111@c.us"
+					},
+					"url": {
+						"type": "string",
+						"description": "url to send (required without file)"
+					},
+					"file": {
+						"type": "string",
+						"description": "file to send (required without url)"
+					},
+					"filename": {
+						"type": "string",
+						"description": "filename for the file"
+					},
+					"mimetype": {
+						"type": "string",
+						"description": "mimetype for the file"
+					},
+					"caption": {
+						"type": "string",
+						"description": "caption for the file"
+					},
+					"reply_to": {
+						"type": "string",
+						"description": "reply to message id"
+					}
+				},
+				"required": ["chatId"]
+			},
+			"SendVideoRequest": {
+				"type": "object",
+				"properties": {
+					"chatId": {
+						"type": "string",
+						"description": "Contact number - **learn what is [`chatId`](https://docs.hypersender.com/docs/whatsapp/what-is-chatid)**",
+						"example": "111111111111@c.us"
+					},
+					"url": {
+						"type": "string",
+						"description": "url to send (required without file)"
+					},
+					"file": {
+						"type": "string",
+						"description": "file to send (required without url)"
+					},
+					"filename": {
+						"type": "string",
+						"description": "filename for the file"
+					},
+					"mimetype": {
+						"type": "string",
+						"description": "mimetype for the file"
+					},
+					"caption": {
+						"type": "string",
+						"description": "caption for the file"
+					},
+					"reply_to": {
+						"type": "string",
+						"description": "reply to message id"
+					}
+				},
+				"required": ["chatId"]
 			},
 			"SendLinkPreview": {
 				"type": "object",

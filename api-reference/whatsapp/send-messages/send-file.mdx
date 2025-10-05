@@ -1,0 +1,33 @@
+---
+title: "Send File"
+description: "Send files (documents/attachments) to WhatsApp users via URL or file upload."
+openapi: "/api-reference/whatsapp/openapi.json POST /{instance}/send-file"
+---
+
+# Send a file (as a document/attachment) to a chat.
+
+## You can send files in two ways:
+
+### Provide a URL for the file.
+
+<Frame>
+<img src="/images/docs/whatsapp/img/send-file-url.png" alt="send-file url" />
+</Frame>
+
+<Warning>
+  Please note that the URL must be publicly accessible and not require any authentication or special headers to access the file.
+</Warning>
+
+***
+
+### Send the file it self as a file upload.
+
+<Frame>
+<img src="/images/docs/whatsapp/img/send-file-file.jpeg" alt="send-file file" />
+</Frame>
+
+Possible file types are: `[png, jpg, jpeg, gif, mp3, mp4, avi, mkv, mov, flv, wav, ogg, webm, 3gp, flac, aac, wma, m4a, opus, pdf, doc, docx, xls, xlsx, ppt, pptx, txt, zip]`
+
+<Frame>
+<img src="/images/docs/whatsapp/img/send-file-preview.jpeg" alt="send-file preview" />
+</Frame>

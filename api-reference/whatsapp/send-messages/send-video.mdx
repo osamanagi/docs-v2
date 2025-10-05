@@ -1,0 +1,51 @@
+---
+title: "Send Video"
+description: "Send videos to WhatsApp users via URL or file upload."
+openapi: "/api-reference/whatsapp/openapi.json POST /{instance}/send-video"
+---
+
+Send videos to the chat.
+
+<Info>
+  This feature is only available for subscribed accounts.
+</Info>
+
+## You can send videos in two ways:
+
+### Provide a URL for the video.
+
+<Frame>
+  <img src="/images/docs/whatsapp/img/send-video-url.png" alt="send-video url" />
+</Frame>
+
+<Warning>
+  Please note that the URL must be publicly accessible and not require any authentication or special headers to access the file.
+
+  You can send videos only in `mp4` formats - so make sure the url contains the correct extension - what WhatsApp accepts.
+
+  **Max allowed file size is `20MB`.**
+</Warning>
+
+***
+
+### Send the video it self as a file upload.
+
+<Frame>
+  <img src="/images/docs/whatsapp/img/send-video-file.png" alt="send-video file" />
+</Frame>
+
+***
+
+<Frame>
+  <img src="/images/docs/whatsapp/img/send-video.png" alt="send-video" />
+</Frame>
+
+***
+
+<Info>
+  By specifying the `asNote` property to `true`, the video will be sent as a whatsapp note video.
+</Info>
+
+<Frame>
+  <img src="/images/docs/whatsapp/img/send-note-video.png" alt="send-video note" />
+</Frame>

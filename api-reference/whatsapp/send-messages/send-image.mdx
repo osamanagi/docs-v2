@@ -1,0 +1,35 @@
+---
+title: "Send Image"
+description: "Send images to WhatsApp users via URL or file upload."
+openapi: "/api-reference/whatsapp/openapi.json POST /{instance}/send-image"
+---
+
+Send images to the chat.
+
+## You can send files in two ways:
+
+### Provide a URL for the image.
+
+<Frame>
+<img src="/images/docs/whatsapp/img/send-image-url.png" alt="send-image url" />
+</Frame>
+
+<Warning>
+  Please note that the URL must be publicly accessible and not require any authentication or special headers to access the file.
+
+  Specify the `mimetype` of the image in the URL. Example: `image/png`
+</Warning>
+
+***
+
+### Send the image it self as a file upload.
+
+<Frame>
+<img src="/images/docs/whatsapp/img/send-image-file.jpeg" alt="send-image file" />
+</Frame>
+
+***
+
+<Frame>
+<img src="/images/docs/whatsapp/img/send-image.png" alt="send-image" />
+</Frame>
